@@ -184,11 +184,6 @@ textarea:focus,input:focus{outline:none;border-color:var(--brand);box-shadow:0 0
       <h2>응답해 주셔서 감사합니다</h2>
       <p>오늘 답해 주신 내용은 수료 후 결과설문과 비교되어 성과평가 보고서로 만들어집니다.</p>
       <p>이제 과정을 시작하시면 됩니다.</p>
-      <div class="payload">
-        <div class="ph">▶ 서버 저장 데이터 미리보기</div>
-        <pre id="payloadView"></pre>
-      </div>
-      <div class="note">※ 검수용 시안입니다. 실제 운영에서는 이 데이터가 survey_responses 테이블에 1행으로 저장되고 제출 시각이 함께 기록됩니다.</div>
     </div>
   </div>
 </div>
@@ -343,7 +338,6 @@ $('#btnNext').onclick = ()=>{
 function submit(){
   const payload={survey:'diagnostic',version:'v6',submitted_at:new Date().toISOString(),
     name:ANS['2']||'',phone:(ANS['3']||'').replace(/[^0-9]/g,''),company:ANS['4']||'',answers:ANS};
-  $('#payloadView').textContent = JSON.stringify(payload,null,1);
   show(PAGES.length);
   navbar.classList.remove('on');
   fetch(SUPABASE_URL+'/rest/v1/survey_responses',{method:'POST',
