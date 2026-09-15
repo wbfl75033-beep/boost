@@ -71,3 +71,10 @@ select
 from public.survey_responses
 where survey = 'diagnostic'
 order by submitted_at desc;
+
+-- 뷰가 RLS를 우회하지 못하도록 잠금 (핵심)
+-- 이게 없으면 anon 공개 키만으로 이 뷰의 모든 응답을 누구나 읽을 수 있음
+alter view public.survey_responses_readable set (security_invoker = true);
+
+-- 혹시 몰라 이중으로 익명/일반 사용자 접근을 명시적으로 차단
+revoke all on public.survey_responses_readable from anon, authenticated;
