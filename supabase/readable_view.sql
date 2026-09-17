@@ -4,7 +4,7 @@
 
 create or replace view public.survey_responses_readable as
 select
-  submitted_at                as 제출시각,
+  submitted_at at time zone 'Asia/Seoul' as 제출시각,
   name                        as 성명,
   phone                       as 연락처,
   company                     as 소속,
