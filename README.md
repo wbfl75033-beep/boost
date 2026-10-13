@@ -13,3 +13,4 @@
 3. `pre-survey/index.html`을 정적 호스팅에 배포
 4. 배포된 링크를 휴대폰으로 열어 끝까지 응답 → 제출 → Table Editor에 행이 생기는지 확인
 5. 테스트 응답 행은 확인 후 삭제
+6. `supabase/keepalive.sql` 실행 — 무료 요금제 프로젝트의 7일 비활동 자동 정지 방지
