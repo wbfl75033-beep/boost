@@ -1,0 +1,93 @@
+-- 결과설문(outcome) 응답을 사람이 보기 편하게 76문항을 열로 펼친 읽기 전용 뷰
+-- survey_responses_readable(진단설문용)과 완전히 분리된 별도 뷰
+-- survey_responses 테이블 자체는 건드리지 않음 (문항이 바뀌어도 이 뷰만 다시 만들면 됨)
+-- Supabase SQL Editor에서 그대로 실행하면 Table Editor에 survey_responses_readable_outcome으로 나타남
+
+create or replace view public.survey_responses_readable_outcome as
+select
+  submitted_at at time zone 'Asia/Seoul' as 제출시각,
+  name                        as 성명,
+  phone                       as 연락처,
+  answers->>'3'  as "3_생손보차이",
+  answers->>'4'  as "4_실손구조",
+  answers->>'5'  as "5_암뇌심장차이",
+  answers->>'6'  as "6_연금저축구조",
+  answers->>'7'  as "7_계약순서",
+  answers->>'8'  as "8_고지의무",
+  answers->>'9'  as "9_암보험즉시OX",
+  answers->>'10' as "10_종신정기차이OX",
+  answers->>'11' as "11_실손전액OX",
+  answers->>'12' as "12_실손중복OX",
+  answers->>'13' as "13_간병동일OX",
+  answers->>'14' as "14_국민연금부족OX",
+  answers->>'15' as "15_병력미고지OX",
+  answers->>'16' as "16_전세화재배상OX",
+  answers->>'17' as "17_기본급OX",
+  answers->>'18' as "18_위촉계약OX",
+  answers->>'19' as "19_해지환수OX",
+  answers->>'20' as "20_등록시험신청OX",
+  answers->>'21' as "21_갈아타기OX",
+  answers->>'22' as "22_대납보험료OX",
+  answers->>'23' as "23_명의대여OX",
+  answers->>'24' as "24_미고지안내OX",
+  answers->>'25' as "25_선택이유설명",
+  answers->>'26' as "26_선택만족",
+  answers->>'27' as "27_주변알림부담",
+  answers->>'28' as "28_고객도움인식",
+  answers->>'29' as "29_6개월지속의향",
+  answers->>'30' as "30_어려워도해낼자신",
+  answers->>'31' as "31_인맥발굴자신감",
+  answers->>'32' as "32_전화약속자신감",
+  answers->>'33' as "33_니즈파악자신감",
+  answers->>'34' as "34_소개요청자신감",
+  answers->>'35' as "35_일정계획습관",
+  answers->>'36' as "36_기록습관",
+  answers->>'37' as "37_지속력",
+  answers->>'38' as "38_5세대실손변화",
+  answers->>'39' as "39_개인연금이유",
+  answers->>'40' as "40_간병보험지급시점",
+  answers->>'41' as "41_배상책임위험",
+  answers->>'42' as "42_종신형연금가입처",
+  answers->>'43' as "43_연금저축세액공제",
+  answers->>'44' as "44_종신보험상속이유",
+  answers->>'45' as "45_정기보험설명",
+  answers->>'46' as "46_계약전알릴의무",
+  answers->>'47' as "47_세입자화재배상",
+  answers->>'48' as "48_갱신형보험료",
+  answers->>'49' as "49_자동차보험제외",
+  answers->>'50' as "50_그때실손구조인지",
+  answers->>'51' as "51_그때선택이유설명가능",
+  answers->>'52' as "52_그때전화약속가능",
+  answers->>'53' as "53_연락가능인원",
+  answers->>'54' as "54_보험이야기가능인원",
+  answers->>'55' as "55_새로떠오른분유무",
+  answers->>'56' as "56_새로떠오른분누구",
+  answers->>'57' as "57_주변직업군",
+  answers->>'58' as "58_신입역량도움",
+  answers->>'59' as "59_신입역량어려움",
+  answers->>'60' as "60_상품이해도움",
+  answers->>'61' as "61_상품이해어려움",
+  answers->>'62' as "62_자격시험도움",
+  answers->>'63' as "63_자격시험어려움",
+  answers->>'64' as "64_미취득자격계획",
+  answers->>'65' as "65_추가교육의향",
+  answers->>'66' as "66_전반적만족도",
+  answers->>'67' as "67_면담도움",
+  answers->>'68' as "68_추천지수NPS",
+  answers->>'69' as "69_만족이유",
+  answers->>'70' as "70_상담경험",
+  answers->>'71' as "71_목표계약건수",
+  answers->>'72' as "72_걱정되는점",
+  answers->>'73' as "73_가장도움된것",
+  answers->>'74' as "74_가장어려웠던것",
+  answers->>'75' as "75_관리자지원요청",
+  answers->>'76' as "76_신경써야할점"
+from public.survey_responses
+where survey = 'outcome'
+order by submitted_at desc;
+
+-- 뷰가 RLS를 우회하지 못하도록 잠금 (핵심)
+alter view public.survey_responses_readable_outcome set (security_invoker = true);
+
+-- 익명/일반 사용자 접근을 명시적으로 차단
+revoke all on public.survey_responses_readable_outcome from anon, authenticated;
