@@ -2,6 +2,7 @@
 
 - 진단설문(입과 전): `pre-survey/index.html` (63문항) → `https://fppartners.vercel.app/pre-survey`
 - 결과설문(수료 후): `post-survey/index.html` (76문항) → `https://fppartners.vercel.app/post-survey`
+- 랜딩페이지: `landing/index.html` → `https://fppartners.vercel.app/landing` (이미지 내장, 견본 PDF는 `landing/files/`)
 - 두 설문 모두 같은 Supabase 프로젝트의 `survey_responses` 테이블에 저장됨, `survey` 컬럼으로 구분(`diagnostic`/`outcome`)
 - 조회/내보내기는 설문별로 완전히 분리: `survey_responses_readable`(진단설문), `survey_responses_readable_outcome`(결과설문)
 - 테이블/보안 정책 SQL: `supabase/schema.sql`
