@@ -391,14 +391,19 @@ html.lock{overflow:hidden}
 /* app tour: text left, phones right, sized to fit one screen; detail follows below */
 .tour{padding:0 44px}
 .tour-top{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:24px;align-items:center;padding-block:4px 8px}
-.tour-txt .label{margin-bottom:12px}
-.modal .tour-txt .h2{font-size:clamp(24px,2.6vw,32px);text-align:left}
-.modal .tour-txt .feat{justify-content:flex-start;margin-top:18px}
-.modal .tour-txt .feat span{font-size:13px;padding:6px 12px}
-.modal .tour-txt .rs-cap{text-align:left;margin:26px 0 0;padding-top:22px;border-top:1px solid var(--line);min-height:150px}
-.modal .tour-txt .rs-ctl{justify-content:flex-start;margin-top:8px}
+/* small heading across the top; the changing step caption is the main read */
+.tour-head{text-align:center;padding-bottom:22px;border-bottom:1px solid var(--line);margin-bottom:8px}
+.tour-head .label{font-size:14px;margin-bottom:8px}
+.modal .tour-head .h2{font-size:clamp(20px,2vw,24px);line-height:1.4}
+.modal .tour-head .feat{justify-content:center;margin-top:14px}
+.modal .tour-head .feat span{font-size:13px;padding:6px 12px}
+.modal .tour-txt .rs-cap{text-align:left;margin:0;padding:0;min-height:0}
+.modal .tour-txt .rs-cap .k{font-size:17px}
+.modal .tour-txt .rs-cap h3{font-size:clamp(30px,3.2vw,40px);line-height:1.3;letter-spacing:-.035em;margin-top:12px}
+.modal .tour-txt .rs-cap p{font-size:19px;margin-top:16px;color:var(--grey)}
+.modal .tour-txt .rs-ctl{justify-content:flex-start;margin-top:22px}
 .tour-vis{position:relative}
-.modal .tour-vis .rs-stage{--pw:min(232px,calc((100vh - 200px) * 9 / 19.3));--step:calc(var(--pw) * .4);margin-top:0}
+.modal .tour-vis .rs-stage{--pw:min(232px,calc((100vh - 330px) * 9 / 19.3));--step:calc(var(--pw) * .4);margin-top:0}
 .modal .tour-vis .rs-btn{width:44px;height:80px;margin-top:-40px}
 .modal .tour-vis .rs-btn svg{width:34px;height:34px}
 .modal .tour-vis .rs-btn.l{left:0}
@@ -450,15 +455,15 @@ html.lock{overflow:hidden}
   .tour-top{display:flex;flex-direction:column;min-height:0;max-height:none;gap:0}
   .tour-txt{display:contents}
   .tour-txt>*{padding-left:24px;padding-right:24px}
-  .tour-txt .label,.modal .tour-txt .h2,.modal .tour-txt .feat{order:1;text-align:center;justify-content:center}
-  .modal .tour-txt .h2{font-size:24px}
+  .tour-head{padding:0 24px 16px;margin-bottom:0}
+  .modal .tour-head .h2{font-size:19px}
   .tour-vis{order:2;align-self:stretch}
-  .modal .tour-txt .rs-cap{order:3;text-align:center;border-top:0;margin-top:0;padding-top:4px;min-height:0}
-  .modal .tour-txt .rs-cap h3{font-size:20px}
+  .modal .tour-txt .rs-cap{order:3;text-align:center;margin-top:0;padding-top:4px;min-height:0}
+  .modal .tour-txt .rs-cap h3{font-size:24px;margin-top:6px}
+  .modal .tour-txt .rs-cap p{font-size:16px;margin-top:8px}
   .modal .tour-txt .rs-ctl{order:4;justify-content:center}
-  .modal .tour-txt .feat span{font-size:12px}
+  .modal .tour-head .feat{display:none}
   .modal .tour-vis .rs-stage{--pw:min(150px,calc((100vh - 420px) * 9 / 19.3));--step:calc(var(--pw) * .5)}
-  .modal .tour-txt .feat{display:none}
   .tour-more{padding:32px 24px 0;margin-top:12px}
   .vs{grid-template-columns:minmax(0,1fr);gap:8px}
   .vs-mid{height:20px}
@@ -766,11 +771,13 @@ footer .wrap{display:flex;flex-direction:column;gap:6px}
   <div class="modal-sheet">
     <button type="button" class="modal-x" data-close aria-label="닫기"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
     <div class="rail-sec tour">
+      <div class="tour-head">
+        <div class="label">05&nbsp;· AI 스마트 시험과정 학습 구조</div>
+        <h2 class="h2" id="examTitle">AI가 시험을 대신 볼 수는 없습니다.<br>그러나 시험 준비는 <span class="mk nw">훨씬 쉬워집니다</span></h2>
+        <div class="feat"><span>생명&nbsp;· 손해&nbsp;· 변액 3개 과정</span><span>언제 어디서나 휴대폰으로</span><span>최단 5~7일</span><span>모의고사 5회분 먼저</span><span>틀린 문제만 5단계</span></div>
+      </div>
       <div class="tour-top">
         <div class="tour-txt">
-          <div class="label">05&nbsp;· AI 스마트 시험과정 학습 구조</div>
-          <h2 class="h2" id="examTitle">AI가 시험을 대신 볼 수는 없습니다.<br>그러나 시험 준비는 <span class="mk nw">훨씬 쉬워집니다</span></h2>
-          <div class="feat"><span>생명&nbsp;· 손해&nbsp;· 변액 3개 과정</span><span>언제 어디서나 휴대폰으로</span><span>최단 5~7일</span><span>모의고사 5회분 먼저</span><span>틀린 문제만 5단계</span></div>
           <div class="rs-cap" id="rsCap" aria-live="polite"><div class="k">01 시험 고르기</div><h3>생명&nbsp;· 손해&nbsp;· 변액,<br>필요한 시험만 고릅니다</h3><p>두꺼운 교재 없이 휴대폰으로 바로 시작합니다.</p></div>
           <div class="rs-ctl"><div class="rs-dots" id="rsDots" aria-hidden="true"><button type="button" class="on"></button><button type="button"></button><button type="button"></button><button type="button"></button><button type="button"></button></div></div>
         </div>
