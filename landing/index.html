@@ -56,9 +56,10 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .anim .fx{opacity:0;transform:translateY(56px)}
 .anim .fx.in{opacity:1;transform:none}
 /* section entrances: headings rise out of a mask, a few blocks slide or settle in */
-.h2.fx{transition:opacity 1s ease,transform 1.1s cubic-bezier(.2,.7,.2,1),clip-path 1.1s cubic-bezier(.2,.7,.2,1)}
-.anim .h2.fx{clip-path:inset(0 0 100% 0);transform:translateY(36px)}
-.anim .h2.fx.in{clip-path:inset(0 0 0 0);transform:none}
+/* the heading box stays in place (so it can be observed); only its inner text is masked */
+.anim .h2.fx{opacity:1;transform:none}
+.h2-in{display:block;transition:clip-path 1.1s cubic-bezier(.2,.7,.2,1),transform 1.1s cubic-bezier(.2,.7,.2,1)}
+.anim .h2.fx:not(.in) .h2-in{clip-path:inset(0 0 100% 0);transform:translateY(36px)}
 .anim .fx.sl{transform:translateX(-56px)}
 .anim .fx.sr{transform:translateX(56px)}
 .anim .why-end.fx{transform:scale(.94)}
@@ -714,6 +715,7 @@ footer .wrap{display:flex;flex-direction:column;gap:6px}
     requestAnimationFrame(step);
   }
   if('IntersectionObserver' in window && !reduce){
+    document.querySelectorAll('.h2.fx').forEach(function(h){ var w=document.createElement('span'); w.className='h2-in'; while(h.firstChild) w.appendChild(h.firstChild); h.appendChild(w); });
     root.classList.add('anim');
     var io=new IntersectionObserver(function(es){
       es.forEach(function(e){
