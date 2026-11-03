@@ -348,7 +348,7 @@ p strong,.bx-p strong,.ev-note strong{font-weight:600;color:var(--ink-2)}
 
 /* 06 process: numbered flow, then the two reports */
 .proc{position:relative;padding-block:150px 160px;overflow:hidden;isolation:isolate}
-.reps{padding-block:130px 150px;overflow:hidden}
+.reps{padding-block:130px 220px;overflow:hidden}
 /* reports: no cards; two open columns, pages floating on the band, the second set a step lower */
 .rp-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));column-gap:clamp(48px,8vw,120px);margin-top:36px}
 .rp{display:flex;flex-direction:column}
@@ -469,11 +469,11 @@ p strong,.bx-p strong,.ev-note strong{font-weight:600;color:var(--ink-2)}
 .rp3-p.l .fr{transform:translateX(calc(40px * (1 - var(--t)))) rotate(calc(-1.5deg * var(--t)));opacity:calc(.2 + .8 * var(--t))}
 .rp3-p.r .fr{transform:translateX(calc(-40px * (1 - var(--t)))) rotate(calc(1.5deg * var(--t)));opacity:calc(.2 + .8 * var(--t))}
 .rp3-txt{display:flex;flex-direction:column;gap:32px}
-.rp3-cap{position:absolute;z-index:3;left:0;right:0;top:calc(100% + 26px);display:flex;align-items:baseline;justify-content:center;gap:10px;opacity:clamp(0,calc(var(--t) * 2 - .8),1)}
+.rp3-cap{position:absolute;z-index:3;left:0;right:0;top:calc(100% + 34px);display:flex;flex-wrap:wrap;align-items:baseline;justify-content:center;column-gap:10px;opacity:clamp(0,calc(var(--t) * 2 - .8),1)}
+.rp3-cap::before{content:"";flex-basis:100%;height:48px;margin-bottom:14px;background:linear-gradient(to bottom,rgba(49,130,246,0),#3182F6 55%,#191F28) no-repeat center/2px 100%}
+.rp3-p.r .rp3-cap::before{background-image:linear-gradient(to bottom,rgba(25,31,40,0),#4E5968 55%,#191F28)}
 .rp3-cap b{font-size:20px;font-weight:700;letter-spacing:-.02em;color:var(--ink)}
 .rp3-cap span{font-size:15px;font-weight:500;color:var(--grey-3)}
-.rp3-cap::before{content:"";width:22px;height:3px;border-radius:3px;background:var(--blue);align-self:center}
-.rp3-p.r .rp3-cap::before{background:var(--ink)}
 .rp3-i.r .rp-k{color:var(--ink)}
 .rp3-i{opacity:clamp(0,calc(var(--t) * 2 - .6),1);padding:4px 4px}
 .rp3-i+.rp3-i{padding-top:32px;border-top:1px solid #DDE2E8}
