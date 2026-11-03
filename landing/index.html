@@ -1172,9 +1172,15 @@ footer .wrap{display:flex;flex-direction:column;gap:6px}
   var msg=document.getElementById('dl-msg');
   function say(t){ if(msg) msg.textContent=t; }
   var ready=(window.claude&&window.claude.use)?window.claude.use('downloads'):Promise.resolve(null);
+  /* resolve files next to this page even when it is opened as /landing (no trailing slash) */
+  function fileUrl(f){
+    var path=location.pathname, last=path.split('/').pop();
+    if(path.slice(-1)!=='/' && last.indexOf('.')<0) path+='/';
+    return new URL(f, location.origin+path).href;
+  }
   document.querySelectorAll('[data-file]').forEach(function(b){
     b.addEventListener('click',function(){
-      if(!(window.claude && window.claude.use)){ var a=document.createElement('a'); a.href=b.dataset.file; a.download=b.dataset.name; document.body.appendChild(a); a.click(); setTimeout(function(){ a.remove(); },1000); return; }
+      if(!(window.claude && window.claude.use)){ var a=document.createElement('a'); a.href=fileUrl(b.dataset.file); a.download=b.dataset.name; document.body.appendChild(a); a.click(); setTimeout(function(){ a.remove(); },1000); return; }
       b.disabled=true;
       ready.then(function(dl){
         if(!dl){ window.open(b.dataset.file,'_blank'); return; }
