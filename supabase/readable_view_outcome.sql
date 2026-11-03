@@ -3,7 +3,10 @@
 -- survey_responses 테이블 자체는 건드리지 않음 (문항이 바뀌어도 이 뷰만 다시 만들면 됨)
 -- Supabase SQL Editor에서 그대로 실행하면 Table Editor에 survey_responses_readable_outcome으로 나타남
 
-create or replace view public.survey_responses_readable_outcome as
+-- CREATE OR REPLACE는 기존 컬럼의 타입을 바꿀 수 없어 DROP 후 재생성
+drop view if exists public.survey_responses_readable_outcome;
+
+create view public.survey_responses_readable_outcome as
 select
   submitted_at at time zone 'Asia/Seoul' as 제출시각,
   name                        as 성명,
