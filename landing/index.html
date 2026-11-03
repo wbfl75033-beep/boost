@@ -770,7 +770,7 @@ footer .wrap{display:flex;flex-direction:column;gap:6px}
     <h1 class="h1 fx d1">본사 교육은 그대로,<br><span class="hl">비어 있는 구간</span>을 채웁니다</h1>
     <p class="lead fx d2">위촉 전 시험부터 첫 한 달까지.<br>신입이 이 일을 계속하게 만드는 과정입니다.</p>
     <div class="btns fx d3">
-      <button type="button" class="btn btn-blue" data-file="files/start-booster-intro.pdf" data-name="신입FP_스타트부스터_과정소개서.pdf">과정 소개서 받기</button>
+      <button type="button" class="btn btn-blue" data-file="files/신입 FP 스타트 부스터 과정.pdf" data-name="신입 FP 스타트 부스터 과정.pdf">과정 소개서 받기</button>
     </div>
   </div>
 </header>
@@ -1000,7 +1000,7 @@ footer .wrap{display:flex;flex-direction:column;gap:6px}
     <p class="lead fx d2">도입 일정과 대상만 알려 주십시오.</p>
     <div class="btns fx d3">
       <a href="tel:025251686" class="btn btn-blue tel">02-525-1686 문의하기</a>
-      <button type="button" class="btn btn-soft" data-file="files/start-booster-intro.pdf" data-name="신입FP_스타트부스터_과정소개서.pdf">과정 소개서 받기</button>
+      <button type="button" class="btn btn-soft" data-file="files/신입 FP 스타트 부스터 과정.pdf" data-name="신입 FP 스타트 부스터 과정.pdf">과정 소개서 받기</button>
     </div>
   </div>
 </section>
@@ -1174,6 +1174,7 @@ footer .wrap{display:flex;flex-direction:column;gap:6px}
   var ready=(window.claude&&window.claude.use)?window.claude.use('downloads'):Promise.resolve(null);
   document.querySelectorAll('[data-file]').forEach(function(b){
     b.addEventListener('click',function(){
+      if(!(window.claude && window.claude.use)){ var a=document.createElement('a'); a.href=b.dataset.file; a.download=b.dataset.name; document.body.appendChild(a); a.click(); setTimeout(function(){ a.remove(); },1000); return; }
       b.disabled=true;
       ready.then(function(dl){
         if(!dl){ window.open(b.dataset.file,'_blank'); return; }
