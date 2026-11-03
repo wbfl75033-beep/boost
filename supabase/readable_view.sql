@@ -69,7 +69,7 @@ select
   answers->>'62' as "62_익숙함선호",
   answers->>'63' as "63_목표한줄"
 from public.survey_responses
-where survey = 'diagnostic'
+where survey = 'diagnostic' and (version is null or version <> 'v8')
 order by submitted_at desc;
 
 -- 뷰가 RLS를 우회하지 못하도록 잠금 (핵심)

@@ -83,7 +83,7 @@ select
   answers->>'75' as "75_관리자지원요청",
   answers->>'76' as "76_신경써야할점"
 from public.survey_responses
-where survey = 'outcome'
+where survey = 'outcome' and (version is null or version <> 'v19')
 order by submitted_at desc;
 
 -- 뷰가 RLS를 우회하지 못하도록 잠금 (핵심)
