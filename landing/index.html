@@ -1235,7 +1235,7 @@ footer .wrap{display:flex;flex-direction:column;gap:6px}
   addEventListener('scroll',sideState,{passive:true}); addEventListener('resize',sideState); sideState();
 
   /* inquiry form: posts to Web3Forms, which mails it to the address registered with the key */
-  var INQ_KEY='';
+  var INQ_KEY='2aaaa973-f33e-4b73-bb3a-883279715248';
   var inq=document.getElementById('inq'), form=document.getElementById('inqForm'), done=document.getElementById('inqDone'), out=document.getElementById('inqMsgOut'), send=document.getElementById('inqSend'), inqLast=null;
   function inqOpen(){ inqLast=document.activeElement; form.hidden=false; done.hidden=true; out.textContent=''; inq.hidden=false; root.classList.add('lock'); setTimeout(function(){ document.getElementById('inqName').focus(); },50); }
   function inqClose(){ inq.hidden=true; root.classList.remove('lock'); if(inqLast) inqLast.focus(); }
