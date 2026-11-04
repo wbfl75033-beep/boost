@@ -1252,9 +1252,12 @@ footer .wrap{display:flex;flex-direction:column;gap:6px}
     if(!bad && !document.getElementById('inqAgree').checked){ bad=['inqAgree','개인정보 수집·이용에 동의해 주세요.']; }
     if(bad){ out.textContent=bad[1]; document.getElementById(bad[0]).focus(); return; }
     if(!INQ_KEY){ out.textContent='문의 접수 준비 중입니다. 02-525-1686으로 연락 주십시오.'; return; }
-    var data=new FormData(form); data.append('access_key',INQ_KEY);
+    /* send as JSON: multipart field names lose their Korean encoding on the mail side */
+    var data={access_key:INQ_KEY};
+    new FormData(form).forEach(function(v,k){ if(k!=='botcheck') data[k]=v; });
+    data.botcheck=form.querySelector('[name=botcheck]').checked;
     send.disabled=true; send.textContent='보내는 중…';
-    fetch('https://api.web3forms.com/submit',{method:'POST',body:data,headers:{Accept:'application/json'}})
+    fetch('https://api.web3forms.com/submit',{method:'POST',body:JSON.stringify(data),headers:{'Content-Type':'application/json',Accept:'application/json'}})
       .then(function(r){ return r.json(); })
       .then(function(j){ if(j && j.success){ form.reset(); form.hidden=true; done.hidden=false; } else { throw new Error(); } })
       .catch(function(){ out.textContent='전송하지 못했습니다. 잠시 후 다시 시도하시거나 02-525-1686으로 연락 주십시오.'; })
