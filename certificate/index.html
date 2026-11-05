@@ -7,7 +7,7 @@
 <meta name="robots" content="noindex">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&family=Nanum+Myeongjo&family=Noto+Sans+KR:wght@400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Nanum+Myeongjo&family=Noto+Sans+KR:wght@400&family=Noto+Serif+KR:wght@600&display=swap" rel="stylesheet">
 <style>
 @font-face{font-family:"PretendardLocal";font-weight:400;font-style:normal;font-display:swap;src:url("/certificate/vendor/Pretendard-Regular.woff2") format("woff2")}
 @font-face{font-family:"PretendardLocal";font-weight:600;font-style:normal;font-display:swap;src:url("/certificate/vendor/Pretendard-SemiBold.woff2") format("woff2")}
@@ -190,7 +190,7 @@ const W = 794, H = 1123;
 const TEXT = '#333333';
 const L = {
   number:  { font: '400 20px "PretendardLocal"', color: TEXT, x: 698.5, y: 86, align: 'right', spacing: -0.45 },
-  name:    { font: '400 33px "Gowun Dodum"', color: TEXT, x: 325, y: 420, align: 'left', spacing: 6.5, bold: 1.2 },
+  name:    { font: '600 32px "Noto Serif KR"', color: TEXT, x: 325, y: 420, align: 'left', spacing: 6, bold: 0.4 },
   period:  { font: '400 25px "PretendardLocal"', color: '#000000', x: 326, y: 515, align: 'left', spacing: -0.7 },
   status:  { font: '400 19px "Noto Sans KR"', color: TEXT, x: 638, ys: [718, 754, 790, 825], align: 'center', bold: 0.1 },
   // AI 스마트 시험과정 미이수 표시: 키보드 '-'보다 조금 긴 선, 위 줄 '이수'의 가운데(x 638)에 맞춤
@@ -304,7 +304,21 @@ function data() {
 
 const canvas = $('canvas');
 let drawn = false;
-function preview() { if (drawn) render(canvas, data(), 2); }
+// 웹 글꼴은 한글을 여러 조각으로 나눠 필요한 글자만 내려받음 → 그리기 전에 이름 글자를 먼저 불러와야 다른 글꼴로 바뀌지 않음
+function fontsFor(d) {
+  return Promise.allSettled([
+    d.name && document.fonts.load(L.name.font, d.name),
+    d.number && document.fonts.load(L.number.font, d.number)
+  ]);
+}
+let seq = 0;
+async function preview() {
+  if (!drawn) return;
+  const d = data(), my = ++seq;
+  render(canvas, d, 2);              // 바로 한 번 그리고
+  await fontsFor(d);
+  if (my === seq) render(canvas, d, 2);   // 글자를 불러온 뒤 다시 그림
+}
 
 ['number', 'name', 'start', 'end', 'issued'].forEach(id => $(id).addEventListener('input', () => { msg(''); preview(); }));
 
@@ -341,6 +355,7 @@ async function save(kind) {
   busy = true; $('savePng').disabled = $('savePdf').disabled = true;
   try {
     await ready;
+    await fontsFor(d);
     if (kind === 'png') {
       render(off, d, scale);
       const blob = await new Promise(r => off.toBlob(r, 'image/png'));
