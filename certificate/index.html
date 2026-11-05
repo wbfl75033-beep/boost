@@ -9,7 +9,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&family=Nanum+Myeongjo&family=Noto+Sans+KR:wght@400&display=swap" rel="stylesheet">
 <style>
-@font-face{font-family:"CertPretendard";font-weight:400;font-style:normal;font-display:block;src:url("vendor/Pretendard-Regular.woff2") format("woff2")}
+@font-face{font-family:"CertPretendard";font-weight:400;font-style:normal;font-display:block;src:url("/certificate/vendor/Pretendard-Regular.woff2") format("woff2")}
 :root{
   --bg:#f4f5f7; --panel:#fff; --ink:#1b1f27; --muted:#6b7280; --line:#e3e6eb;
   --accent:#1f4fbf; --accent-ink:#fff; --gold:#a8812f; --danger:#c0392b; --chip:#eef2fb;
@@ -174,8 +174,8 @@ td.num input{font-size:12.5px;letter-spacing:-.01em}
   </section>
 </main>
 
-<script src="vendor/jspdf.umd.min.js"></script>
-<script src="vendor/jszip.min.js"></script>
+<script src="/certificate/vendor/jspdf.umd.min.js"></script>
+<script src="/certificate/vendor/jszip.min.js"></script>
 <script>
 /* ---------- 수료증 레이아웃 (원본 794 × 1123 기준 좌표) ---------- */
 const W = 794, H = 1123;
@@ -192,9 +192,15 @@ const L = {
 
 const FONT_LOADS = [L.number.font, L.name.font, L.period.font, L.issued.font];
 const bg = new Image();
+// 주소가 /certificate 든 /certificate/ 든 같은 파일을 찾도록 절대 경로 사용
 const ready = Promise.all([
-  new Promise((res, rej) => { bg.onload = res; bg.onerror = rej; bg.src = 'template.png'; }),
-  ...FONT_LOADS.map(f => document.fonts.load(f, '가나다 0123456789 FP-NSB 이수참여제호유숙희~.'))
+  new Promise((res, rej) => {
+    bg.onload = res;
+    bg.onerror = () => rej(new Error('수료증 바탕 이미지를 불러오지 못했습니다'));
+    bg.src = '/certificate/template.png';
+  }),
+  // 글꼴 하나가 늦거나 실패해도 수료증은 그려지게 함
+  Promise.allSettled(FONT_LOADS.map(f => document.fonts.load(f, '가나다 0123456789 FP-NSB 이수참여제호유숙희~.')))
 ]).then(() => document.fonts.ready);
 
 function drawText(ctx, text, o) {
@@ -438,7 +444,7 @@ async function job(fn) {
   if (busy) return; busy = true;
   document.querySelectorAll('#dlPng,#dlPdf,#zipPng,#onePdf,#zipPdf').forEach(b => b.disabled = true);
   try { await ready; await fn(); }
-  catch (e) { console.error(e); status('저장 중 문제가 생겼습니다: ' + e.message); }
+  catch (e) { console.error(e); status('저장 중 문제가 생겼습니다: ' + ((e && e.message) || e)); }
   finally { busy = false; progress(null); document.querySelectorAll('#dlPng,#dlPdf,#zipPng,#onePdf,#zipPdf').forEach(b => b.disabled = false); }
 }
 const tick = () => new Promise(r => setTimeout(r, 0));
