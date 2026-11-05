@@ -52,6 +52,13 @@ h1,h2,p{margin:0}
 .fld input::placeholder{color:var(--grey-4)}
 .two{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);gap:8px;align-items:center}
 .two i{font-style:normal;color:var(--grey-3)}
+/* 수료번호: 앞부분(FP-NSB-)은 고정, 숫자만 입력 */
+.pre{display:flex;align-items:stretch;background:var(--band-2);border:1px solid var(--line);border-radius:12px;transition:border-color .15s,box-shadow .15s,background .15s}
+.pre:focus-within{border-color:var(--blue);box-shadow:0 0 0 3px rgba(49,130,246,.15);background:var(--white)}
+.pre b{display:flex;align-items:center;padding-left:14px;font-weight:600;font-size:16px;color:var(--grey-2);white-space:nowrap}
+.fld .pre input{border:0;background:transparent;box-shadow:none;padding-left:4px}
+.fld .pre input:focus{box-shadow:none;background:transparent}
+.sub{font-size:13px;color:var(--grey-3);margin-top:6px}
 
 /* 이수 / 미이수 선택 */
 .pick{display:grid;grid-template-columns:1fr 1fr;gap:8px}
@@ -121,8 +128,9 @@ footer .wrap{display:flex;flex-direction:column;gap:4px}
 
 <main class="wrap main">
   <section class="card" aria-label="수료증 내용 입력">
-    <label class="fld"><span>수료번호</span>
-      <input type="text" id="number" placeholder="FP-NSB-00001" autocomplete="off" spellcheck="false">
+    <label class="fld"><span>수료번호 <small style="font-weight:400;color:var(--grey-3)">(숫자만 입력)</small></span>
+      <div class="pre"><b>FP-NSB-</b><input type="text" id="number" inputmode="numeric" placeholder="2" maxlength="5" autocomplete="off" aria-label="수료번호 숫자"></div>
+      <div class="sub" id="numberOut">숫자를 넣으면 FP-NSB-00002처럼 다섯 자리로 바뀝니다.</div>
     </label>
 
     <label class="fld"><span>이름</span>
@@ -272,9 +280,21 @@ function today() {
 }
 $('issued').value = today();
 
+const NUM_PREFIX = 'FP-NSB-', NUM_DIGITS = 5;
+function fullNumber() {
+  const n = $('number').value.replace(/\D/g, '');
+  return n ? NUM_PREFIX + n.padStart(NUM_DIGITS, '0') : '';
+}
+$('number').addEventListener('input', e => {
+  const clean = e.target.value.replace(/\D/g, '').slice(0, NUM_DIGITS);
+  if (clean !== e.target.value) e.target.value = clean;
+  const f = fullNumber();
+  $('numberOut').textContent = f ? `수료증에는 「제 ${f}호」로 들어갑니다.` : '숫자를 넣으면 FP-NSB-00002처럼 다섯 자리로 바뀝니다.';
+});
+
 function data() {
   return {
-    number: $('number').value.trim(),
+    number: fullNumber(),
     name: $('name').value.trim(),
     period: fmtPeriod($('start').value, $('end').value),
     issued: fmtIssued($('issued').value),
