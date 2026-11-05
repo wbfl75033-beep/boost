@@ -2,195 +2,195 @@
 <html lang="ko">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>수료증 발급기</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>수료증 발급 · 신입 FP 스타트 부스터 과정</title>
 <meta name="robots" content="noindex">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&family=Nanum+Myeongjo&family=Noto+Sans+KR:wght@400&display=swap" rel="stylesheet">
 <style>
-@font-face{font-family:"CertPretendard";font-weight:400;font-style:normal;font-display:block;src:url("/certificate/vendor/Pretendard-Regular.woff2") format("woff2")}
+@font-face{font-family:"PretendardLocal";font-weight:400;font-style:normal;font-display:swap;src:url("/certificate/vendor/Pretendard-Regular.woff2") format("woff2")}
+@font-face{font-family:"PretendardLocal";font-weight:600;font-style:normal;font-display:swap;src:url("/certificate/vendor/Pretendard-SemiBold.woff2") format("woff2")}
+@font-face{font-family:"PretendardLocal";font-weight:700;font-style:normal;font-display:swap;src:url("/certificate/vendor/Pretendard-Bold.woff2") format("woff2")}
+/* 랜딩페이지(/landing)와 같은 색·글꼴·버튼 */
 :root{
-  --bg:#f4f5f7; --panel:#fff; --ink:#1b1f27; --muted:#6b7280; --line:#e3e6eb;
-  --accent:#1f4fbf; --accent-ink:#fff; --gold:#a8812f; --danger:#c0392b; --chip:#eef2fb;
-}
-@media (prefers-color-scheme: dark){
-  :root:not([data-theme="light"]){
-    --bg:#121418; --panel:#1b1e24; --ink:#e7e9ee; --muted:#9aa1ad; --line:#2c313a;
-    --accent:#5b86f0; --accent-ink:#0b1020; --chip:#222a3a;
-  }
+  color-scheme:light;
+  --blue:#3182F6; --blue-d:#1B64DA; --blue-soft:#E8F3FF;
+  --ink:#191F28; --ink-2:#333D4B; --grey:#4E5968; --grey-2:#6B7684; --grey-3:#8B95A1; --grey-4:#B0B8C1;
+  --line:#E5E8EB; --band:#F2F4F6; --band-2:#F9FAFB; --white:#FFFFFF; --red:#F04452;
+  --font:"PretendardLocal",-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Malgun Gothic",system-ui,sans-serif;
+  --maxw:1200px;
 }
 *{box-sizing:border-box}
 html,body{margin:0}
-body{
-  background:var(--bg); color:var(--ink); line-height:1.5;
-  font-family:-apple-system,BlinkMacSystemFont,system-ui,"Apple SD Gothic Neo","Malgun Gothic",sans-serif;
-  -webkit-font-smoothing:antialiased;
+body{background:var(--white);color:var(--ink);font-family:var(--font);font-size:16px;line-height:1.6;letter-spacing:-.01em;-webkit-font-smoothing:antialiased;word-break:keep-all;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+h1,h2,p{margin:0}
+.wrap{max-width:var(--maxw);margin:0 auto;padding-left:max(24px,env(safe-area-inset-left,0px));padding-right:max(24px,env(safe-area-inset-right,0px))}
+
+/* nav */
+.nav{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.92);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.nav-in{display:flex;align-items:center;justify-content:space-between;height:60px;gap:12px}
+.logo img{display:block;height:38px;width:auto}
+.nav-t{font-size:15px;font-weight:600;color:var(--grey)}
+
+/* head */
+.head{background:var(--band-2);padding-block:48px 40px;text-align:center}
+.label{font-size:16px;font-weight:700;color:var(--blue)}
+.h1{font-size:clamp(30px,4.4vw,44px);font-weight:700;line-height:1.3;letter-spacing:-.035em;margin-top:10px}
+.lead{font-size:clamp(16px,1.8vw,18px);font-weight:400;color:var(--grey);margin-top:12px}
+
+/* layout */
+.main{display:grid;grid-template-columns:minmax(0,420px) minmax(0,1fr);gap:40px;align-items:start;padding-block:40px 80px}
+
+/* form */
+.card{background:var(--white);border:1px solid var(--line);border-radius:24px;padding:28px 26px}
+.fld{display:block;margin-bottom:18px}
+.fld > span,.fld-t{display:block;font-size:14px;font-weight:600;color:var(--ink-2);margin-bottom:8px}
+.fld input{width:100%;min-width:0;font:inherit;font-size:16px;color:var(--ink);background:var(--band-2);border:1px solid var(--line);border-radius:12px;padding:12px 14px;outline:none;transition:border-color .15s,box-shadow .15s,background .15s}
+.fld input:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(49,130,246,.15);background:var(--white)}
+.fld input::placeholder{color:var(--grey-4)}
+.two{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);gap:8px;align-items:center}
+.two i{font-style:normal;color:var(--grey-3)}
+
+/* 이수 / 미이수 선택 */
+.pick{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.pick button{font:inherit;font-size:16px;font-weight:600;padding:12px 10px;border-radius:12px;border:1px solid var(--line);background:var(--band-2);color:var(--grey);cursor:pointer;transition:background .15s,border-color .15s,color .15s}
+.pick button:hover{border-color:var(--grey-4)}
+.pick button.on{background:var(--blue-soft);border-color:var(--blue);color:var(--blue)}
+.pick button:focus-visible{outline:3px solid rgba(49,130,246,.4);outline-offset:2px}
+
+.divider{height:1px;background:var(--line);margin:8px 0 22px}
+
+/* size toggle */
+.size{display:flex;gap:6px;background:var(--band);border-radius:12px;padding:4px;margin-bottom:14px}
+.size button{flex:1;font:inherit;font-size:14px;font-weight:600;border:0;border-radius:9px;padding:8px 6px;background:transparent;color:var(--grey-2);cursor:pointer}
+.size button.on{background:var(--white);color:var(--ink);box-shadow:0 1px 3px rgba(0,0,0,.08)}
+
+/* buttons */
+.btns{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;font-family:inherit;font-size:17px;font-weight:600;letter-spacing:-.01em;padding:15px 18px;border-radius:16px;border:0;cursor:pointer;background:var(--band);color:var(--ink-2);transition:background .15s,transform .15s}
+.btn:hover{background:#E5E8EB}
+.btn:active{transform:scale(.97)}
+.btn:focus-visible{outline:3px solid rgba(49,130,246,.4);outline-offset:2px}
+.btn-blue{background:var(--blue);color:#fff}
+.btn-blue:hover{background:var(--blue-d)}
+.btn-soft{background:var(--blue-soft);color:var(--blue)}
+.btn-soft:hover{background:#D6E8FF}
+.btn[disabled]{opacity:.5;cursor:default}
+.msg{min-height:1.5em;margin-top:12px;font-size:14px;color:var(--grey-2);text-align:center}
+.msg.err{color:var(--red)}
+
+/* preview */
+.preview{position:sticky;top:84px;background:var(--band);border-radius:24px;padding:28px}
+.preview canvas{display:block;width:100%;max-width:640px;height:auto;margin:0 auto;border-radius:4px;box-shadow:0 24px 50px -20px rgba(0,27,55,.25),0 2px 8px rgba(0,0,0,.06)}
+
+footer{background:var(--band-2);color:var(--grey-3);font-size:14px;padding-block:32px 44px}
+footer b{color:var(--grey);font-weight:600}
+footer .wrap{display:flex;flex-direction:column;gap:4px}
+
+@media (max-width:900px){
+  .main{grid-template-columns:1fr;gap:24px;padding-block:24px 56px}
+  .preview{position:static;padding:16px;border-radius:20px}
+  .head{padding-block:32px 28px}
 }
-header{padding:18px 20px 6px;max-width:1280px;margin:0 auto}
-header h1{margin:0;font-size:20px;letter-spacing:-.01em}
-header p{margin:4px 0 0;color:var(--muted);font-size:13.5px}
-main{
-  max-width:1280px;margin:0 auto;padding:12px 20px 40px;
-  display:grid;grid-template-columns:minmax(0,440px) minmax(0,1fr);gap:20px;align-items:start;
-}
-.panel{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:16px}
-.panel + .panel{margin-top:16px}
-.panel h2{margin:0 0 12px;font-size:15px;display:flex;align-items:center;gap:8px}
-.panel h2 .n{display:inline-grid;place-items:center;width:20px;height:20px;border-radius:50%;background:var(--accent);color:var(--accent-ink);font-size:12px}
-.grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-label.f{display:block;font-size:12.5px;color:var(--muted);margin-bottom:10px}
-label.f > span{display:block;margin-bottom:4px}
-input[type=text],input[type=date],input[type=number],textarea,select{
-  width:100%;font:inherit;font-size:14px;color:var(--ink);background:var(--panel);
-  border:1px solid var(--line);border-radius:8px;padding:8px 10px;
-}
-textarea{min-height:96px;resize:vertical;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:13px}
-input:focus,textarea:focus,select:focus{outline:2px solid var(--accent);outline-offset:-1px;border-color:transparent}
-.hint{font-size:12px;color:var(--muted);margin:2px 0 10px}
-.btn{
-  font:inherit;font-size:13.5px;font-weight:600;border-radius:8px;padding:8px 12px;cursor:pointer;
-  border:1px solid var(--line);background:var(--panel);color:var(--ink);
-}
-.btn:hover{border-color:var(--accent)}
-.btn.primary{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
-.btn.small{font-size:12.5px;padding:5px 9px}
-.btn:disabled{opacity:.5;cursor:default}
-.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
-.seg{display:inline-flex;border:1px solid var(--line);border-radius:8px;overflow:hidden}
-.seg button{font:inherit;font-size:12.5px;white-space:nowrap;min-width:38px;border:0;background:transparent;color:var(--ink);padding:5px 10px;cursor:pointer}
-.seg button.on{background:var(--accent);color:var(--accent-ink)}
-table{width:100%;border-collapse:collapse;font-size:13.5px;table-layout:fixed}
-th,td{padding:6px 4px;border-bottom:1px solid var(--line);text-align:left;vertical-align:middle}
-th{font-size:12px;color:var(--muted);font-weight:600}
-td input[type=text]{padding:5px 7px;font-size:13.5px}
-tr.sel td{background:var(--chip)}
-th.c-num{width:136px}
-th.c-ai{width:88px}
-th.c-act{width:30px}
-td.act{text-align:right}
-td.num input{font-size:12.5px;letter-spacing:-.01em}
-.x{border:0;background:transparent;color:var(--muted);cursor:pointer;font-size:16px;line-height:1;padding:4px}
-.x:hover{color:var(--danger)}
-.listwrap{max-height:420px;overflow:auto;margin:0 -4px;padding:0 4px}
-.empty{color:var(--muted);font-size:13px;padding:14px 0;text-align:center}
-.preview{position:sticky;top:12px}
-.stage{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:14px}
-.stage canvas{display:block;width:100%;max-width:794px;height:auto;margin:0 auto;box-shadow:0 2px 14px rgba(0,0,0,.12)}
-.bar{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:10px}
-.bar .who{font-size:13.5px;color:var(--muted)}
-.status{font-size:13px;color:var(--muted);min-height:20px;margin-top:8px}
-.progress{height:4px;background:var(--line);border-radius:4px;overflow:hidden;margin-top:6px;display:none}
-.progress i{display:block;height:100%;width:0;background:var(--accent);transition:width .15s}
-@media (max-width: 900px){
-  main{grid-template-columns:1fr;padding:10px 16px 32px}
-  header{padding:16px 16px 4px}
-  .preview{position:static}
+@media (max-width:480px){
+  .wrap{padding-left:16px;padding-right:16px}
+  .logo img{height:30px}
+  .card{padding:22px 18px;border-radius:20px}
+  .btn{font-size:16px;padding:14px 12px}
 }
 </style>
 </head>
 <body>
-<header>
-  <h1>수료증 발급기</h1>
-  <p>신입 FP 스타트 부스터 과정 · 입력한 내용은 이 브라우저에서만 처리되고 어디에도 전송되지 않습니다.</p>
+
+<nav class="nav">
+  <div class="wrap nav-in">
+    <a href="https://fppartners.co.kr/" class="logo" target="_blank" rel="noopener" aria-label="FP파트너즈 홈페이지 (새 탭)"><img src="/certificate/logo.webp" alt="FP파트너즈 세일즈 역량 AI 진단 플랫폼"></a>
+    <span class="nav-t">수료증 발급</span>
+  </div>
+</nav>
+
+<header class="head">
+  <div class="wrap">
+    <div class="label">신입 FP 스타트 부스터 과정</div>
+    <h1 class="h1">수료증 발급</h1>
+    <p class="lead">내용을 입력하면 수료증에 바로 반영됩니다.<br>저장한 파일은 이 컴퓨터에만 내려받아집니다.</p>
+  </div>
 </header>
 
-<main>
-  <section>
-    <div class="panel">
-      <h2><span class="n">1</span>공통 설정</h2>
-      <div class="grid2">
-        <label class="f"><span>교육 시작일</span><input type="date" id="start"></label>
-        <label class="f"><span>교육 종료일</span><input type="date" id="end"></label>
-      </div>
-      <div class="grid2">
-        <label class="f"><span>수료증 발급일</span><input type="date" id="issued"></label>
-        <label class="f"><span>수료번호 앞부분</span><input type="text" id="prefix" value="FP-NSB-"></label>
-      </div>
-      <div class="grid2">
-        <label class="f"><span>시작 번호 (자동 부여)</span><input type="number" id="startNo" min="0" value="1"></label>
-        <label class="f"><span>번호 자릿수</span><input type="number" id="digits" min="1" max="10" value="5"></label>
-      </div>
-      <div class="row">
-        <button class="btn small" id="renumber" type="button">명단 전체 번호 다시 매기기</button>
+<main class="wrap main">
+  <section class="card" aria-label="수료증 내용 입력">
+    <label class="fld"><span>수료번호</span>
+      <input type="text" id="number" placeholder="FP-NSB-00001" autocomplete="off" spellcheck="false">
+    </label>
+
+    <label class="fld"><span>이름</span>
+      <input type="text" id="name" placeholder="홍길동" autocomplete="off" maxlength="20">
+    </label>
+
+    <div class="fld">
+      <span class="fld-t">교육기간</span>
+      <div class="two">
+        <input type="date" id="start" aria-label="교육 시작일">
+        <i>~</i>
+        <input type="date" id="end" aria-label="교육 종료일">
       </div>
     </div>
 
-    <div class="panel">
-      <h2><span class="n">2</span>명단</h2>
-      <label class="f"><span>엑셀에서 복사해 붙여넣기 (한 줄에 한 명)</span>
-        <textarea id="paste" placeholder="유숙희	이수&#10;김철수	-&#10;FP-NSB-00010	이영희	이수"></textarea>
-      </label>
-      <p class="hint">칸 순서: <b>이름</b>, <b>AI 시험과정</b>(이수 / -) · 맨 앞에 수료번호를 넣으면 그 번호를 쓰고, 없으면 자동으로 매깁니다. 이수 여부를 비우면 ‘이수’로 들어갑니다.</p>
-      <div class="row" style="margin-bottom:12px">
-        <button class="btn primary" id="addPaste" type="button">명단에 추가</button>
-        <button class="btn" id="addOne" type="button">한 명 추가</button>
-        <button class="btn" id="clearAll" type="button" style="margin-left:auto">명단 비우기</button>
-      </div>
-      <div class="listwrap">
-        <table>
-          <thead><tr><th class="c-num">수료번호</th><th>이름</th><th class="c-ai">AI 시험과정</th><th class="c-act"></th></tr></thead>
-          <tbody id="list"></tbody>
-        </table>
-        <div class="empty" id="empty">명단이 비어 있습니다. 위에 붙여넣거나 ‘한 명 추가’를 누르세요.</div>
+    <div class="fld">
+      <span class="fld-t" id="aiLabel">AI 스마트 시험과정</span>
+      <div class="pick" role="radiogroup" aria-labelledby="aiLabel">
+        <button type="button" role="radio" data-ai="1" class="on" aria-checked="true">이수</button>
+        <button type="button" role="radio" data-ai="0" aria-checked="false">미이수 ( — )</button>
       </div>
     </div>
 
-    <div class="panel">
-      <h2><span class="n">3</span>저장</h2>
-      <label class="f"><span>이미지 크기</span>
-        <select id="scale">
-          <option value="1">원본 크기 (794 × 1123)</option>
-          <option value="3">인쇄용 고해상도 (2382 × 3369)</option>
-        </select>
-      </label>
-      <p class="hint" style="margin-top:-4px">선택한 1장 저장</p>
-      <div class="row" style="margin-bottom:12px">
-        <button class="btn" id="dlPng" type="button">이미지 (PNG)</button>
-        <button class="btn" id="dlPdf" type="button">PDF</button>
-      </div>
-      <p class="hint">명단 전체 저장</p>
-      <div class="row">
-        <button class="btn primary" id="zipPng" type="button">이미지 전체 (ZIP)</button>
-        <button class="btn primary" id="onePdf" type="button">PDF 한 파일로</button>
-        <button class="btn" id="zipPdf" type="button">PDF 각각 (ZIP)</button>
-      </div>
-      <div class="progress" id="progress"><i></i></div>
-      <div class="status" id="status"></div>
+    <label class="fld"><span>수료증 발급일</span>
+      <input type="date" id="issued">
+    </label>
+
+    <div class="divider"></div>
+
+    <div class="size" role="radiogroup" aria-label="이미지 크기">
+      <button type="button" role="radio" data-scale="1" class="on" aria-checked="true">원본 크기</button>
+      <button type="button" role="radio" data-scale="3" aria-checked="false">인쇄용 고해상도</button>
     </div>
+    <div class="btns">
+      <button type="button" class="btn btn-blue" id="savePng">이미지 저장</button>
+      <button type="button" class="btn btn-soft" id="savePdf">PDF 저장</button>
+    </div>
+    <p class="msg" id="msg" role="status"></p>
   </section>
 
-  <section class="preview">
-    <div class="stage">
-      <div class="bar">
-        <span class="who" id="who">미리보기</span>
-        <div class="row">
-          <button class="btn small" id="prev" type="button">◀ 이전</button>
-          <button class="btn small" id="next" type="button">다음 ▶</button>
-        </div>
-      </div>
-      <canvas id="canvas" width="794" height="1123" aria-label="수료증 미리보기"></canvas>
-    </div>
+  <section class="preview" aria-label="수료증 미리보기">
+    <canvas id="canvas" width="794" height="1123" role="img" aria-label="수료증 미리보기"></canvas>
   </section>
 </main>
 
+<footer>
+  <div class="wrap">
+    <b>에프피파트너즈㈜</b>
+    <span>fppartners.co.kr&nbsp;· 02-525-1686</span>
+  </div>
+</footer>
+
 <script src="/certificate/vendor/jspdf.umd.min.js"></script>
-<script src="/certificate/vendor/jszip.min.js"></script>
 <script>
 /* ---------- 수료증 레이아웃 (원본 794 × 1123 기준 좌표) ---------- */
 const W = 794, H = 1123;
 const TEXT = '#333333';
 const L = {
-  number:  { font: '400 20px "CertPretendard"', color: TEXT, x: 698.5, y: 86, align: 'right', spacing: -0.45 },
+  number:  { font: '400 20px "PretendardLocal"', color: TEXT, x: 698.5, y: 86, align: 'right', spacing: -0.45 },
   name:    { font: '400 33px "Gowun Dodum"', color: TEXT, x: 325, y: 420, align: 'left', spacing: 6.5, bold: 1.2 },
-  period:  { font: '400 25px "CertPretendard"', color: '#000000', x: 326, y: 515, align: 'left', spacing: -0.7 },
+  period:  { font: '400 25px "PretendardLocal"', color: '#000000', x: 326, y: 515, align: 'left', spacing: -0.7 },
   status:  { font: '400 19px "Noto Sans KR"', color: TEXT, x: 638, ys: [718, 754, 790, 825], align: 'center', bold: 0.1 },
   // AI 스마트 시험과정 미이수 표시: 키보드 '-'보다 조금 긴 선, 위 줄 '이수'의 가운데(x 638)에 맞춤
   dash:    { cx: 638, cy: 781, w: 12, h: 1.6, color: '#555555' },
   issued:  { font: '400 23px "Nanum Myeongjo"', color: TEXT, x: 397, y: 927, align: 'center', advance: 11, bold: 0.4 }
 };
 
-const FONT_LOADS = [L.number.font, L.name.font, L.period.font, L.issued.font];
+const FONT_LOADS = [L.number.font, L.name.font, L.status.font, L.issued.font];
 const bg = new Image();
 // 주소가 /certificate 든 /certificate/ 든 같은 파일을 찾도록 절대 경로 사용
 const ready = Promise.all([
@@ -261,249 +261,90 @@ function fmtIssued(v) {
   return `${t.y}. ${p(t.m)}. ${p(t.d)}`;
 }
 
-/* ---------- 상태 ---------- */
+/* ---------- 입력 ---------- */
 const $ = id => document.getElementById(id);
-const STORE = 'fp-certificate-v1';
-let people = [];   // {number, name, ai}
-let sel = 0;
+let ai = true;
+let scale = 1;
 
-function settings() {
+function today() {
+  const d = new Date();
+  return new Date(d.getTime() - d.getTimezoneOffset() * 6e4).toISOString().slice(0, 10);
+}
+$('issued').value = today();
+
+function data() {
   return {
-    start: $('start').value, end: $('end').value, issued: $('issued').value,
-    prefix: $('prefix').value, startNo: $('startNo').value, digits: $('digits').value
+    number: $('number').value.trim(),
+    name: $('name').value.trim(),
+    period: fmtPeriod($('start').value, $('end').value),
+    issued: fmtIssued($('issued').value),
+    ai
   };
 }
-function save() {
-  try { localStorage.setItem(STORE, JSON.stringify({ s: settings(), people, sel })); } catch (e) {}
-}
-function load() {
-  let data = null;
-  try { data = JSON.parse(localStorage.getItem(STORE) || 'null'); } catch (e) {}
-  const today = new Date(); const iso = d => new Date(d.getTime() - d.getTimezoneOffset() * 6e4).toISOString().slice(0, 10);
-  const s = (data && data.s) || {};
-  $('start').value = s.start || '';
-  $('end').value = s.end || '';
-  $('issued').value = s.issued || iso(today);
-  if (s.prefix != null) $('prefix').value = s.prefix;
-  if (s.startNo) $('startNo').value = s.startNo;
-  if (s.digits) $('digits').value = s.digits;
-  people = (data && Array.isArray(data.people)) ? data.people : [];
-  sel = (data && data.sel) || 0;
-}
 
-function makeNumber(n) {
-  const digits = Math.max(1, parseInt($('digits').value, 10) || 5);
-  return $('prefix').value + String(n).padStart(digits, '0');
-}
-function nextNumber() {
-  // 명단에서 가장 큰 자동번호 다음, 없으면 시작 번호
-  const prefix = $('prefix').value;
-  let max = (parseInt($('startNo').value, 10) || 1) - 1;
-  people.forEach(p => {
-    if (p.number && p.number.startsWith(prefix)) {
-      const n = parseInt(p.number.slice(prefix.length), 10);
-      if (!isNaN(n) && n > max) max = n;
-    }
-  });
-  return makeNumber(max + 1);
-}
-
-function dataFor(p) {
-  const s = settings();
-  return { number: p.number, name: p.name, ai: p.ai, period: fmtPeriod(s.start, s.end), issued: fmtIssued(s.issued) };
-}
-function fileName(p, ext) {
-  const safe = t => (t || '').replace(/[\\/:*?"<>|]/g, '').trim();
-  return `${safe(p.number) || '수료증'}_${safe(p.name) || '이름없음'}.${ext}`;
-}
-
-/* ---------- 화면 ---------- */
 const canvas = $('canvas');
-function preview() {
-  const p = people[sel] || { number: nextNumber(), name: '', ai: true };
-  render(canvas, dataFor(p), 2);
-  $('who').textContent = people.length ? `${sel + 1} / ${people.length} · ${p.name || '(이름 없음)'}` : '미리보기 (명단 없음)';
-  $('prev').disabled = sel <= 0;
-  $('next').disabled = sel >= people.length - 1;
-}
-function esc(t) { return String(t).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c])); }
-function drawList() {
-  const tb = $('list');
-  tb.innerHTML = people.map((p, i) => `
-    <tr data-i="${i}" class="${i === sel ? 'sel' : ''}">
-      <td class="num"><input type="text" data-k="number" value="${esc(p.number)}" aria-label="수료번호"></td>
-      <td class="nm"><input type="text" data-k="name" value="${esc(p.name)}" aria-label="이름"></td>
-      <td><div class="seg" role="group" aria-label="AI 시험과정">
-        <button type="button" data-ai="1" class="${p.ai ? 'on' : ''}">이수</button>
-        <button type="button" data-ai="0" class="${p.ai ? '' : 'on'}">—</button>
-      </div></td>
-      <td class="act"><button type="button" class="x" data-del title="삭제" aria-label="삭제">×</button></td>
-    </tr>`).join('');
-  $('empty').style.display = people.length ? 'none' : 'block';
-}
-function select(i) {
-  sel = Math.max(0, Math.min(i, people.length - 1));
-  document.querySelectorAll('#list tr').forEach(tr => tr.classList.toggle('sel', +tr.dataset.i === sel));
-  preview(); save();
-}
+let drawn = false;
+function preview() { if (drawn) render(canvas, data(), 2); }
 
-$('list').addEventListener('input', e => {
-  const tr = e.target.closest('tr'); if (!tr) return;
-  const i = +tr.dataset.i; people[i][e.target.dataset.k] = e.target.value;
-  if (i !== sel) select(i); else { preview(); save(); }
-});
-$('list').addEventListener('focusin', e => { const tr = e.target.closest('tr'); if (tr && +tr.dataset.i !== sel) select(+tr.dataset.i); });
-$('list').addEventListener('click', e => {
-  const tr = e.target.closest('tr'); if (!tr) return;
-  const i = +tr.dataset.i;
-  if (e.target.dataset.ai != null) {
-    people[i].ai = e.target.dataset.ai === '1';
-    tr.querySelectorAll('[data-ai]').forEach(b => b.classList.toggle('on', b === e.target));
-    select(i); return;
-  }
-  if (e.target.hasAttribute('data-del')) {
-    people.splice(i, 1); if (sel >= people.length) sel = Math.max(0, people.length - 1);
-    drawList(); preview(); save(); return;
-  }
-  if (i !== sel) select(i);
-});
+['number', 'name', 'start', 'end', 'issued'].forEach(id => $(id).addEventListener('input', () => { msg(''); preview(); }));
 
-function parseAi(v) {
-  const t = (v || '').trim().toLowerCase();
-  if (!t) return true;
-  return !['-', '—', '–', 'x', 'n', 'no', '0', '미이수', '불참', 'false', '×'].includes(t);
+function pickGroup(sel, attr, onPick) {
+  document.querySelectorAll(sel).forEach(b => b.addEventListener('click', () => {
+    document.querySelectorAll(sel).forEach(x => { const on = x === b; x.classList.toggle('on', on); x.setAttribute('aria-checked', on); });
+    onPick(b.dataset[attr]);
+  }));
 }
-$('addPaste').addEventListener('click', () => {
-  const lines = $('paste').value.split(/\r?\n/).map(l => l.trim()).filter(Boolean);
-  const prefix = $('prefix').value;
-  let added = 0;
-  lines.forEach(line => {
-    let cols = line.split(/\t|,/).map(c => c.trim());
-    if (cols.every(c => !c)) return;
-    if (/^(이름|성명|수료번호)$/.test(cols[0])) return;   // 머리글 줄 건너뛰기
-    let number = '';
-    const looksNumber = c => /\d/.test(c) && (c.startsWith(prefix) || /^[A-Za-z0-9-]+$/.test(c));
-    if (cols.length >= 2 && looksNumber(cols[0])) { number = cols.shift(); }
-    const name = cols[0] || '';
-    const ai = parseAi(cols[1]);
-    if (!name) return;
-    people.push({ number: number || nextNumber(), name, ai });
-    added++;
-  });
-  if (!added) { status('추가할 이름을 찾지 못했습니다.'); return; }
-  $('paste').value = '';
-  sel = people.length - added;
-  drawList(); preview(); save();
-  status(`${added}명을 추가했습니다.`);
-});
-$('addOne').addEventListener('click', () => {
-  people.push({ number: nextNumber(), name: '', ai: true });
-  sel = people.length - 1; drawList(); preview(); save();
-  const inp = document.querySelector(`#list tr[data-i="${sel}"] input[data-k="name"]`); if (inp) inp.focus();
-});
-$('clearAll').addEventListener('click', () => {
-  if (!people.length || !confirm('명단을 모두 지울까요?')) return;
-  people = []; sel = 0; drawList(); preview(); save();
-});
-$('renumber').addEventListener('click', () => {
-  if (!people.length) return;
-  if (!confirm('명단의 수료번호를 시작 번호부터 차례대로 다시 매길까요?')) return;
-  const s = parseInt($('startNo').value, 10) || 1;
-  people.forEach((p, i) => p.number = makeNumber(s + i));
-  drawList(); preview(); save();
-});
-['start', 'end', 'issued', 'prefix', 'startNo', 'digits'].forEach(id => $(id).addEventListener('input', () => { preview(); save(); }));
-$('prev').addEventListener('click', () => select(sel - 1));
-$('next').addEventListener('click', () => select(sel + 1));
+pickGroup('[data-ai]', 'ai', v => { ai = v === '1'; preview(); });
+pickGroup('[data-scale]', 'scale', v => { scale = parseFloat(v) || 1; });
 
 /* ---------- 저장 ---------- */
-function status(t) { $('status').textContent = t; }
-function progress(r) { const el = $('progress'); el.style.display = r == null ? 'none' : 'block'; el.firstElementChild.style.width = ((r || 0) * 100) + '%'; }
-function scale() { return parseFloat($('scale').value) || 1; }
-const off = document.createElement('canvas');
-function toBlob(c, type, q) { return new Promise(r => c.toBlob(r, type, q)); }
+function msg(t, err) { const m = $('msg'); m.textContent = t; m.classList.toggle('err', !!err); }
+function fileName(d, ext) {
+  const safe = t => (t || '').replace(/[\\/:*?"<>|]/g, '').trim();
+  return [safe(d.number), safe(d.name)].filter(Boolean).join('_') + '_수료증.' + ext;
+}
 function download(blob, name) {
   const a = document.createElement('a');
   a.href = URL.createObjectURL(blob); a.download = name;
   document.body.appendChild(a); a.click(); a.remove();
   setTimeout(() => URL.revokeObjectURL(a.href), 4000);
 }
-function newPdf() { return new jspdf.jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4', compress: true }); }
-function addPage(pdf, c) {
-  // PDF에는 이미지 화질을 지키면서 용량을 줄이려고 JPEG(고품질)로 넣음
-  pdf.addImage(c.toDataURL('image/jpeg', 0.95), 'JPEG', 0, 0, 210, 297, undefined, 'FAST');
+function check(d) {
+  if (!d.name) { msg('이름을 입력해 주세요.', true); $('name').focus(); return false; }
+  return true;
 }
-function current() { return people[sel] || null; }
-function needPeople() {
-  const list = people.filter(p => p.name.trim());
-  if (!list.length) { status('명단에 이름을 먼저 넣어 주세요.'); return null; }
-  return list;
-}
+const off = document.createElement('canvas');
 let busy = false;
-async function job(fn) {
-  if (busy) return; busy = true;
-  document.querySelectorAll('#dlPng,#dlPdf,#zipPng,#onePdf,#zipPdf').forEach(b => b.disabled = true);
-  try { await ready; await fn(); }
-  catch (e) { console.error(e); status('저장 중 문제가 생겼습니다: ' + ((e && e.message) || e)); }
-  finally { busy = false; progress(null); document.querySelectorAll('#dlPng,#dlPdf,#zipPng,#onePdf,#zipPdf').forEach(b => b.disabled = false); }
+async function save(kind) {
+  if (busy) return;
+  const d = data(); if (!check(d)) return;
+  busy = true; $('savePng').disabled = $('savePdf').disabled = true;
+  try {
+    await ready;
+    if (kind === 'png') {
+      render(off, d, scale);
+      const blob = await new Promise(r => off.toBlob(r, 'image/png'));
+      download(blob, fileName(d, 'png'));
+      msg(`${d.name} 님 수료증 이미지를 저장했습니다.`);
+    } else {
+      render(off, d, 3);   // PDF는 인쇄 품질로
+      const pdf = new jspdf.jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4', compress: true });
+      pdf.addImage(off.toDataURL('image/jpeg', 0.95), 'JPEG', 0, 0, 210, 297, undefined, 'FAST');
+      download(pdf.output('blob'), fileName(d, 'pdf'));
+      msg(`${d.name} 님 수료증 PDF를 저장했습니다.`);
+    }
+  } catch (e) {
+    console.error(e);
+    msg('저장하지 못했습니다: ' + ((e && e.message) || e), true);
+  } finally {
+    busy = false; $('savePng').disabled = $('savePdf').disabled = false;
+  }
 }
-const tick = () => new Promise(r => setTimeout(r, 0));
+$('savePng').addEventListener('click', () => save('png'));
+$('savePdf').addEventListener('click', () => save('pdf'));
 
-$('dlPng').addEventListener('click', () => job(async () => {
-  const p = current(); if (!p || !p.name.trim()) { status('저장할 사람을 명단에서 선택해 주세요.'); return; }
-  render(off, dataFor(p), scale());
-  download(await toBlob(off, 'image/png'), fileName(p, 'png'));
-  status(`${p.name} 수료증 이미지를 저장했습니다.`);
-}));
-$('dlPdf').addEventListener('click', () => job(async () => {
-  const p = current(); if (!p || !p.name.trim()) { status('저장할 사람을 명단에서 선택해 주세요.'); return; }
-  render(off, dataFor(p), Math.max(scale(), 3));
-  const pdf = newPdf(); addPage(pdf, off);
-  download(pdf.output('blob'), fileName(p, 'pdf'));
-  status(`${p.name} 수료증 PDF를 저장했습니다.`);
-}));
-$('zipPng').addEventListener('click', () => job(async () => {
-  const list = needPeople(); if (!list) return;
-  const zip = new JSZip();
-  for (let i = 0; i < list.length; i++) {
-    render(off, dataFor(list[i]), scale());
-    zip.file(fileName(list[i], 'png'), await toBlob(off, 'image/png'));
-    progress((i + 1) / list.length); status(`이미지 만드는 중… ${i + 1} / ${list.length}`); await tick();
-  }
-  status('ZIP 파일로 묶는 중…');
-  download(await zip.generateAsync({ type: 'blob' }), `수료증_이미지_${list.length}명.zip`);
-  status(`${list.length}명 이미지를 ZIP으로 저장했습니다.`);
-}));
-$('onePdf').addEventListener('click', () => job(async () => {
-  const list = needPeople(); if (!list) return;
-  const pdf = newPdf();
-  for (let i = 0; i < list.length; i++) {
-    if (i) pdf.addPage('a4', 'portrait');
-    render(off, dataFor(list[i]), 3);
-    addPage(pdf, off);
-    progress((i + 1) / list.length); status(`PDF 만드는 중… ${i + 1} / ${list.length}`); await tick();
-  }
-  download(pdf.output('blob'), `수료증_${list.length}명.pdf`);
-  status(`${list.length}명 수료증을 PDF 한 파일로 저장했습니다.`);
-}));
-$('zipPdf').addEventListener('click', () => job(async () => {
-  const list = needPeople(); if (!list) return;
-  const zip = new JSZip();
-  for (let i = 0; i < list.length; i++) {
-    render(off, dataFor(list[i]), 3);
-    const pdf = newPdf(); addPage(pdf, off);
-    zip.file(fileName(list[i], 'pdf'), pdf.output('blob'));
-    progress((i + 1) / list.length); status(`PDF 만드는 중… ${i + 1} / ${list.length}`); await tick();
-  }
-  status('ZIP 파일로 묶는 중…');
-  download(await zip.generateAsync({ type: 'blob' }), `수료증_PDF_${list.length}명.zip`);
-  status(`${list.length}명 PDF를 ZIP으로 저장했습니다.`);
-}));
-
-/* ---------- 시작 ---------- */
-load();
-drawList();
-ready.then(preview).catch(() => status('수료증 바탕 이미지나 글꼴을 불러오지 못했습니다. 새로고침해 주세요.'));
+ready.then(() => { drawn = true; preview(); })
+     .catch(e => msg(((e && e.message) || '수료증을 불러오지 못했습니다') + '. 새로고침해 주세요.', true));
 window.__cert = { render, ready, L };   // 확인용
 </script>
 </body>
