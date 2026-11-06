@@ -561,7 +561,7 @@ p strong,.bx-p strong,.ev-note strong{font-weight:600;color:var(--ink-2)}
 .fld i,.chk i{font-style:normal;color:var(--blue)}
 .fld input,.fld textarea{font:inherit;font-size:16px;color:var(--ink);background:var(--band-2);border:1px solid var(--line);border-radius:12px;padding:12px 14px;outline:none;transition:border-color .15s,box-shadow .15s;resize:vertical}
 .fld input:focus,.fld textarea:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(49,130,246,.15);background:var(--white)}
-.fld input[aria-invalid="true"]{border-color:#F04452}
+.fld input[aria-invalid="true"],.fld textarea[aria-invalid="true"]{border-color:#F04452}
 .agree{margin-top:18px;border-radius:14px;background:var(--band-2);padding:14px 16px}
 .chk{display:flex;align-items:center;gap:10px;font-size:15px;font-weight:600;cursor:pointer}
 .chk input{width:20px;height:20px;accent-color:var(--blue);flex:none}
@@ -979,13 +979,13 @@ footer .wrap{display:flex;flex-direction:column;gap:6px}
         <label class="fld"><span>소속 <i>*</i></span><input id="inqOrg" name="소속" type="text" autocomplete="organization" required maxlength="60" placeholder="OO에셋 OO사업단"></label>
         <label class="fld"><span>연락처 <i>*</i></span><input id="inqTel" name="연락처" type="tel" autocomplete="tel" inputmode="tel" required maxlength="20" placeholder="010-0000-0000"></label>
         <label class="fld"><span>이메일</span><input id="inqMail" name="email" type="email" autocomplete="email" maxlength="80" placeholder="name@company.com"></label>
-        <label class="fld wide"><span>문의 내용</span><textarea id="inqMsg" name="문의 내용" rows="4" maxlength="1000" placeholder="예) 12월 입사 예정 신입 5명 대상으로 도입을 검토하고 있습니다."></textarea></label>
+        <label class="fld wide"><span>문의 내용 <i>*</i></span><textarea id="inqMsg" name="문의 내용" rows="4" maxlength="1000" required placeholder="예) 12월 입사 예정 신입 5명 대상으로 도입을 검토하고 있습니다."></textarea></label>
       </div>
       <div class="agree">
         <label class="chk"><input id="inqAgree" name="개인정보 수집·이용 동의" type="checkbox" value="동의함" required><span>개인정보 수집·이용에 동의합니다 <i>(필수)</i></span></label>
         <div class="agree-body">
           <dl>
-            <dt>수집 항목</dt><dd>이름, 소속, 연락처, 이메일(선택), 문의 내용(선택)</dd>
+            <dt>수집 항목</dt><dd>이름, 소속, 연락처, 문의 내용, 이메일(선택)</dd>
             <dt>수집 목적</dt><dd>도입 문의 확인 및 상담 연락</dd>
             <dt>보유 기간</dt><dd>문의 처리 완료 후 1년 (관계 법령에 따라 보존이 필요한 경우 해당 기간)</dd>
           </dl>
@@ -1249,7 +1249,7 @@ footer .wrap{display:flex;flex-direction:column;gap:6px}
   addEventListener('keydown',function(e){ if(e.key==='Escape' && !inq.hidden) inqClose(); });
   form.addEventListener('submit',function(e){
     e.preventDefault(); out.textContent='';
-    var need=[['inqName','이름을 입력해 주세요.'],['inqOrg','소속을 입력해 주세요.'],['inqTel','연락처를 입력해 주세요.']], bad=null;
+    var need=[['inqName','이름을 입력해 주세요.'],['inqOrg','소속을 입력해 주세요.'],['inqTel','연락처를 입력해 주세요.'],['inqMsg','문의 내용을 입력해 주세요.']], bad=null;
     need.forEach(function(n){ var el=document.getElementById(n[0]); var ok=el.value.trim()!==''; el.setAttribute('aria-invalid',ok?'false':'true'); if(!ok && !bad) bad=n; });
     var tel=document.getElementById('inqTel');
     if(!bad && !/^[0-9+\-\s()]{8,20}$/.test(tel.value.trim())){ bad=['inqTel','연락처를 숫자로 입력해 주세요.']; tel.setAttribute('aria-invalid','true'); }
