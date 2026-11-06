@@ -1285,6 +1285,8 @@ footer .wrap{display:flex;flex-direction:column;gap:6px}
   var ready=(window.claude&&window.claude.use)?window.claude.use('downloads'):Promise.resolve(null);
   /* resolve files next to this page even when it is opened as /landing (no trailing slash) */
   function fileUrl(f){
+    /* on startbooster.fppartners.co.kr the page is served at / by a rewrite, but its files stay under /landing */
+    if(location.hostname==='startbooster.fppartners.co.kr') return location.origin+'/landing/'+f;
     var path=location.pathname, last=path.split('/').pop();
     if(path.slice(-1)!=='/' && last.indexOf('.')<0) path+='/';
     return new URL(f, location.origin+path).href;
