@@ -608,6 +608,8 @@ p strong,.bx-p strong,.ev-note strong{font-weight:600;color:var(--ink-2)}
 html.lock{overflow:hidden}
 /* app tour: text left, phones right, sized to fit one screen; detail follows below */
 .tour{padding:0 44px}
+.modal .rail-sec.tour{padding-top:0}
+@media (max-width:900px){.pc-br{display:none}}
 .tour-top{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:24px;align-items:center;padding-block:4px 8px}
 /* small heading across the top; the changing step caption is the main read */
 .tour-head{text-align:center;padding-bottom:22px;border-bottom:1px solid var(--line);margin-bottom:8px}
@@ -1067,8 +1069,8 @@ footer .wrap{display:flex;flex-direction:column;gap:6px}
           <li class="on"><em>2026.10.22</em><b>특허 등록</b></li>
         </ol>
         <div class="pat">
-          <b><span class="nw">PASS-Aegis Engine</span>&nbsp;· 특허 <span class="nw">제10-3038930호</span></b>
-          <p>틀린 보기를 정답과 비교해 왜 틀렸는지 가리고, 그 개념을 설명하는 영상 구간으로 연결합니다. 해설은 강사의 검증과 공인 교재로 확인해 AI가 법규를 잘못 말하는 위험을 막습니다.</p>
+          <b><span class="nw">PASS-Aegis Engine</span> 탑재&nbsp;· 특허 <span class="nw">제10-3038930호</span></b>
+          <p>틀린 보기를 정답과 비교해 왜 틀렸는지 가리고, 그 개념을 설명하는 영상 구간으로 연결합니다.<br class="pc-br"> 해설은 강사의 검증과 공인 교재로 확인해 AI가 법규를 잘못 말하는 위험을 막습니다.</p>
         </div>
       </div>
     </div>
