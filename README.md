@@ -2,7 +2,7 @@
 
 - 진단설문(입과 전): `pre-survey/index.html` (66문항, v8) → `https://fppartners.vercel.app/pre-survey`
 - 결과설문(수료 후): `post-survey/index.html` (76문항, v19) → `https://fppartners.vercel.app/post-survey`
-- 랜딩페이지: `landing/index.html` (이미지 내장, 견본 PDF는 `landing/files/`) → 배포 브랜치에 합쳐지면 `https://fppartners.vercel.app/landing`
+- 랜딩페이지: `landing/index.html` (이미지 내장, 소개서 PDF는 `landing/files/`) → `https://fppartners.vercel.app/landing`, `https://startbooster.fppartners.co.kr` (`vercel.json`의 rewrite로 첫 화면에 랜딩 표시)
 - 수료증 발급기: `certificate/index.html` (한 명씩 입력 → 바탕 `template.png` 위에 그려 PNG/PDF로 저장, 서버·DB 없음, 이전 기록은 브라우저(localStorage)에만 보관, 디자인은 랜딩과 동일) → `https://fppartners.vercel.app/certificate`
   - 글자 위치·크기는 `index.html` 안의 `const L = {...}` 한 곳에서 조정
 - 두 설문 모두 같은 Supabase 프로젝트의 `survey_responses` 테이블에 저장됨, `survey` 컬럼으로 구분(`diagnostic`/`outcome`), `version` 컬럼으로 문항 버전 구분
