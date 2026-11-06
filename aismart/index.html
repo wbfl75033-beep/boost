@@ -834,6 +834,10 @@ footer .wrap{display:flex;flex-direction:column;gap:6px}
 @media (max-width:900px){
   .anim .steps5::before{transform:scaleY(0);transform-origin:center top}
   .tline::after{display:none}
+  /* two rows: each item draws its own segment to the next dot, so the second row has a line too */
+  .tline::before{display:none}
+  .tline li::after{content:"";position:absolute;z-index:-1;left:0;right:0;top:7px;height:2px;background:var(--line)}
+  .tline li:last-child::after{display:none}
 }
 .anim .tline li.on.in::before{animation:pulse 2.4s ease-out 1.6s infinite}
 @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(49,130,246,.45)}70%{box-shadow:0 0 0 12px rgba(49,130,246,0)}100%{box-shadow:0 0 0 5px var(--blue-soft)}}
@@ -914,7 +918,7 @@ footer .wrap{display:flex;flex-direction:column;gap:6px}
           <li class="on"><em>2026.10.22</em><b>특허 등록</b></li>
         </ol>
         <div class="pat fx">
-          <b><span class="nw">PASS-Aegis Engine</span> 탑재&nbsp;· 특허 <span class="nw">제10-3038930호</span></b>
+          <b><span class="nw">PASS-Aegis Engine</span> 탑재<br>특허 <span class="nw">제10-3038930호</span></b>
           <p>틀린 보기를 정답과 비교해 왜 틀렸는지 가리고, 그 개념을 설명하는 영상 구간으로 연결합니다.<br class="pc-br"> 해설은 강사의 검증과 공인 교재로 확인해 AI가 법규를 잘못 말하는 위험을 막습니다.</p>
         </div>
       </div>
