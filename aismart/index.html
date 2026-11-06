@@ -793,6 +793,47 @@ footer .wrap{display:flex;flex-direction:column;gap:6px}
 .ex-sheet{max-width:1040px;margin:0 auto;padding:48px 0 96px}
 .modal .tour-head h1.h2{margin:0}
 @media (max-width:900px){.ex-sheet{padding:32px 0 calc(64px + env(safe-area-inset-bottom,0px))}}
+/* page title: the popup heading becomes the page headline */
+.modal.ex-page .tour-head{padding-bottom:36px;margin-bottom:24px}
+.modal.ex-page .tour-head .label{font-size:17px;margin-bottom:14px}
+.modal.ex-page .tour-head .h2{font-size:clamp(34px,4.4vw,50px);line-height:1.32;letter-spacing:-.035em}
+.modal.ex-page .tour-head .feat{margin-top:26px}
+.modal.ex-page .tour-head .feat span{font-size:14px;padding:8px 14px}
+@media (max-width:900px){
+  .modal.ex-page .tour-head{padding-bottom:24px;margin-bottom:8px}
+  .modal.ex-page .tour-head .label{font-size:15px;margin-bottom:10px}
+  .modal.ex-page .tour-head .h2{font-size:clamp(25px,7vw,34px)}
+}
+/* motion: text slides in from the left, phones from the right, lines draw, lists count in */
+.anim .feat span.fx{transform:translateY(14px) scale(.94);transition-duration:.6s,.7s}
+.anim .feat span.fx.in{transform:none}
+@media (min-width:901px){
+  .anim .tour-top.fx{opacity:1;transform:none}
+  .anim .tour-top .tour-txt,.anim .tour-top .tour-vis{opacity:0;transition:opacity 1.1s ease,transform 1.2s cubic-bezier(.2,.7,.2,1)}
+  .anim .tour-top .tour-txt{transform:translateX(-56px)}
+  .anim .tour-top .tour-vis{transform:translateX(64px);transition-delay:.15s}
+  .anim .tour-top.in .tour-txt,.anim .tour-top.in .tour-vis{opacity:1;transform:none}
+}
+.anim .vs-mid.fx{transform:scale(.6)}
+.anim .vs-mid.fx.in{transform:none}
+.anim .steps5 li.fx{transform:translateY(28px) scale(.96)}
+.anim .steps5 li.fx.in,.anim .tline li.fx.in{transform:none}
+.anim .tline li.fx{transform:translateY(20px)}
+.anim .steps5::before{transform:scaleX(0);transform-origin:left center;transition:transform 1.3s cubic-bezier(.2,.7,.2,1) .1s}
+.anim .steps5.in::before{transform:none}
+.tline::after{content:"";position:absolute;left:0;right:0;top:7px;height:2px;background:var(--blue);transform:scaleX(0);transform-origin:left center}
+.anim .tline::after{transition:transform 1.4s cubic-bezier(.4,.1,.2,1) .2s}
+.tline.in::after,html:not(.anim) .tline::after{transform:none}
+.tline li{z-index:1}
+@media (max-width:900px){
+  .anim .steps5::before{transform:scaleY(0);transform-origin:center top}
+  .tline::after{display:none}
+}
+.anim .tline li.on.in::before{animation:pulse 2.4s ease-out 1.6s infinite}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(49,130,246,.45)}70%{box-shadow:0 0 0 12px rgba(49,130,246,0)}100%{box-shadow:0 0 0 5px var(--blue-soft)}}
+.anim .rs-card.on .phone{animation:float 5s ease-in-out 1.2s infinite}
+@keyframes float{50%{transform:translateY(-8px)}}
+@media (prefers-reduced-motion:reduce){.tline::after{transform:none}}
 </style>
 
 <nav class="nav" id="nav">
@@ -808,11 +849,11 @@ footer .wrap{display:flex;flex-direction:column;gap:6px}
   <div class="ex-sheet">
     <div class="rail-sec tour">
       <div class="tour-head">
-        <div class="label">02&nbsp;· AI 스마트 시험과정</div>
-        <h1 class="h2" id="examTitle">AI가 시험을 대신 볼 수는 없습니다.<br>그러나 시험 준비는 <span class="mk nw">훨씬 쉬워집니다</span></h1>
-        <div class="feat"><span>생명&nbsp;· 손해&nbsp;· 변액 3개 과정</span><span>언제 어디서나 휴대폰으로</span><span>최단 5~7일</span><span>모의고사 5회분 먼저</span><span>틀린 문제만 5단계</span></div>
+        <div class="label fx">AI 스마트 시험과정</div>
+        <h1 class="h2 fx d1" id="examTitle">AI가 시험을 대신 볼 수는 없습니다.<br>그러나 시험 준비는 <span class="hl nw">훨씬 쉬워집니다</span></h1>
+        <div class="feat" data-stagger="450,80"><span>생명&nbsp;· 손해&nbsp;· 변액 3개 과정</span><span>언제 어디서나 휴대폰으로</span><span>최단 5~7일</span><span>모의고사 5회분 먼저</span><span>틀린 문제만 5단계</span></div>
       </div>
-      <div class="tour-top">
+      <div class="tour-top fx">
         <div class="tour-txt">
           <div class="rs-cap" id="rsCap" aria-live="polite"><div class="k">01 시험 고르기</div><h3>생명&nbsp;· 손해&nbsp;· 변액,<br>필요한 시험만 고릅니다</h3><p>두꺼운 교재 없이 휴대폰으로 바로 시작합니다.</p></div>
           <div class="rs-ctl"><div class="rs-dots" id="rsDots" aria-hidden="true"><button type="button" class="on"></button><button type="button"></button><button type="button"></button><button type="button"></button><button type="button"></button></div></div>
@@ -840,24 +881,24 @@ footer .wrap{display:flex;flex-direction:column;gap:6px}
         </div>
       </div>
       <div class="tour-more">
-        <h3 class="tm-h">기존 방식과 무엇이 다른가요?</h3>
+        <h3 class="tm-h fx">기존 방식과 무엇이 다른가요?</h3>
         <div class="vs">
-          <div class="vs-c old"><span class="vs-k">지금까지의 시험 준비</span>
+          <div class="vs-c old fx sl"><span class="vs-k">지금까지의 시험 준비</span>
             <ol><li>두꺼운 교재를 펴고</li><li>영상을 처음부터 보고</li><li>문제집을 풀다가</li><li class="end">중간에 포기</li></ol></div>
-          <div class="vs-mid" aria-hidden="true">VS</div>
-          <div class="vs-c new"><span class="vs-k">AI 스마트 시험과정</span>
+          <div class="vs-mid fx d1" aria-hidden="true">VS</div>
+          <div class="vs-c new fx sr d2"><span class="vs-k">AI 스마트 시험과정</span>
             <ol><li>휴대폰 하나로</li><li>모의고사 5회분을 먼저 풀고</li><li>틀린 문제만 5단계로 반복해</li><li class="end">합격선 +10점이 목표</li></ol></div>
         </div>
-        <h3 class="tm-h">틀린 문제는 이렇게 5단계로 다시 봅니다</h3>
-        <ol class="steps5">
+        <h3 class="tm-h fx">틀린 문제는 이렇게 5단계로 다시 봅니다</h3>
+        <ol class="steps5 ln" data-stagger="150,110">
           <li><span class="sn">1</span><b>해설</b><small>왜 틀렸는지</small></li>
           <li><span class="sn">2</span><b>핀포인트 강의</b><small>그 개념 구간만 바로 재생</small></li>
           <li><span class="sn">3</span><b>문항 해설 영상</b><small>문제 풀이를 영상으로</small></li>
           <li><span class="sn">4</span><b>출제 포인트</b><small>시험에 나오는 지점</small></li>
           <li><span class="sn">5</span><b>교재 기반 정의</b><small>공인 교재로 확인</small></li>
         </ol>
-        <h3 class="tm-h">첫 특허 출원에서 등록까지 9개월</h3>
-        <ol class="tline">
+        <h3 class="tm-h fx">첫 특허 출원에서 등록까지 9개월</h3>
+        <ol class="tline ln" data-stagger="150,110">
           <li><em>2026.1</em><b>첫 특허 출원</b></li>
           <li><em>2026.3</em><b>개발 시작</b></li>
           <li><em>2026.7</em><b>파일럿 개시</b></li>
@@ -865,7 +906,7 @@ footer .wrap{display:flex;flex-direction:column;gap:6px}
           <li><em>2026.8</em><b>유료 서비스</b></li>
           <li class="on"><em>2026.10.22</em><b>특허 등록</b></li>
         </ol>
-        <div class="pat">
+        <div class="pat fx">
           <b><span class="nw">PASS-Aegis Engine</span> 탑재&nbsp;· 특허 <span class="nw">제10-3038930호</span></b>
           <p>틀린 보기를 정답과 비교해 왜 틀렸는지 가리고, 그 개념을 설명하는 영상 구간으로 연결합니다.<br class="pc-br"> 해설은 강사의 검증과 공인 교재로 확인해 AI가 법규를 잘못 말하는 위험을 막습니다.</p>
         </div>
@@ -886,6 +927,19 @@ footer .wrap{display:flex;flex-direction:column;gap:6px}
 (function(){
   var reduce=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
   var root=document.documentElement;
+  /* reveal on scroll: same motion as the main landing */
+  document.querySelectorAll('[data-stagger]').forEach(function(box){
+    var o=box.dataset.stagger.split(','), base=+o[0], step=+o[1];
+    [].forEach.call(box.children,function(el,i){ el.classList.add('fx'); el.style.transitionDelay=(base+i*step)+'ms'; });
+  });
+  if('IntersectionObserver' in window && !reduce){
+    document.querySelectorAll('.h2.fx').forEach(function(h){ var w=document.createElement('span'); w.className='h2-in'; while(h.firstChild) w.appendChild(h.firstChild); h.appendChild(w); });
+    root.classList.add('anim');
+    var io=new IntersectionObserver(function(es){
+      es.forEach(function(e){ if(!e.isIntersecting) return; e.target.classList.add('in'); io.unobserve(e.target); });
+    },{threshold:.15,rootMargin:'0px 0px -12% 0px'});
+    document.querySelectorAll('.fx,.ln').forEach(function(t){ io.observe(t); });
+  }
   var nav=document.getElementById('nav');
   function onScroll(){ nav.classList.toggle('line', scrollY>8); }
   addEventListener('scroll',onScroll,{passive:true}); onScroll();
