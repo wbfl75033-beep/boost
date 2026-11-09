@@ -4,6 +4,11 @@
       "source": "/",
       "has": [{ "type": "host", "value": "startbooster.fppartners.co.kr" }],
       "destination": "/landing"
+    },
+    {
+      "source": "/",
+      "has": [{ "type": "host", "value": "aismart-landing.fppartners.co.kr" }],
+      "destination": "/aismart"
     }
   ]
 }
