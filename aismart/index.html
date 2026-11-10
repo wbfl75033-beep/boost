@@ -902,11 +902,13 @@ footer .wrap{display:flex;flex-direction:column;gap:6px}
 @media (max-width:900px){.ex-evi{margin-top:52px;padding:36px 20px 28px;border-radius:24px}.ex-evi .ev-lead{font-size:15px}.ex-evi .ev{margin-top:24px}}
 .tm-h .tm-pre{margin-right:.4em}
 @media (max-width:900px){.tm-h .tm-pre{display:block;margin:0}}
-/* "reverse study" badge on the AI card */
+/* "reverse study" badge on the AI card: a tilted yellow sticker */
 .vs-c.new{position:relative}
-.vs-badge{position:absolute;top:20px;right:20px;display:inline-flex;align-items:center;gap:6px;padding:7px 13px 7px 10px;border-radius:999px;background:#fff;color:var(--blue);font-size:13.5px;font-weight:700;letter-spacing:-.01em;box-shadow:0 8px 20px -8px rgba(0,30,90,.45)}
-.vs-badge svg{width:16px;height:16px;flex:none}
-@media (max-width:900px){.vs-badge{top:18px;right:16px;font-size:12.5px;padding:6px 11px 6px 9px}.vs-badge svg{width:14px;height:14px}}
+.vs-badge{position:absolute;top:-14px;right:22px;display:flex;align-items:center;gap:8px;padding:10px 16px 10px 10px;border-radius:18px;background:linear-gradient(135deg,#FFE680,#FFC83A);color:#4A3200;font-size:15px;font-weight:700;line-height:1.2;letter-spacing:-.02em;transform:rotate(4deg);box-shadow:0 14px 28px -12px rgba(120,80,0,.55),0 0 0 3px #fff}
+.vs-badge img{width:30px;height:30px;flex:none;filter:drop-shadow(0 3px 4px rgba(120,80,0,.3))}
+.anim .vs-c.new.in .vs-badge{animation:stick .7s cubic-bezier(.3,1.6,.5,1) .9s both}
+@keyframes stick{from{opacity:0;transform:rotate(-12deg) scale(.6)}to{opacity:1;transform:rotate(4deg) scale(1)}}
+@media (max-width:900px){.vs-badge{top:-12px;right:14px;font-size:13px;padding:8px 13px 8px 8px;border-radius:15px}.vs-badge img{width:24px;height:24px}}
 </style>
 
 <nav class="nav" id="nav">
@@ -961,7 +963,7 @@ footer .wrap{display:flex;flex-direction:column;gap:6px}
           <div class="vs-c old fx sl"><span class="vs-k">지금까지의 시험 준비</span>
             <ol><li>두꺼운 교재를 펴고</li><li>영상을 처음부터 보고</li><li>문제집을 풀다가</li><li class="end">중도 이탈 가능성 有</li></ol></div>
           <div class="vs-mid fx d1" aria-hidden="true">VS</div>
-          <div class="vs-c new fx sr d2"><span class="vs-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18h6M10 21h4"/><path d="M12 3a6 6 0 0 0-3.6 10.8c.6.5 1 1.2 1 2V16h5.2v-.2c0-.8.4-1.5 1-2A6 6 0 0 0 12 3z"/></svg>역발상 학습법</span><span class="vs-k">AI 스마트 시험과정</span>
+          <div class="vs-c new fx sr d2"><span class="vs-badge"><img src="data:image/webp;base64,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" alt="" width="64" height="64"><span>역발상<br>학습법</span></span><span class="vs-k">AI 스마트 시험과정</span>
             <ol><li>휴대폰 하나로</li><li><u>모의고사 5회분</u>을 먼저 풀고</li><li><u>틀린 문제만</u> 5단계로 반복해</li><li class="end">합격선 <u>+10점</u>이 목표</li></ol></div>
         </div>
         <h3 class="tm-h fx">틀린 문제는 이렇게 <span class="mk">5단계</span>로 다시 봅니다</h3>
@@ -989,7 +991,7 @@ footer .wrap{display:flex;flex-direction:column;gap:6px}
           <li><em>2026.3</em><b>개발 시작</b></li>
           <li><em>2026.7</em><b>파일럿 개시</b></li>
           <li><em>2026.7.28</em><b>특허 결정</b></li>
-          <li><em>2026.8</em><b>유료 서비스</b></li>
+          <li><em>2026.8</em><b>유료 서비스 개시</b></li>
           <li class="on"><em>2026.10.22</em><b>특허 등록</b></li>
         </ol>
         <div class="pat fx">
