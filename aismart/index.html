@@ -917,10 +917,9 @@ footer .wrap{display:flex;flex-direction:column;gap:6px}
 /* intro download: soft blue next to the solid shortcut; toast while the file is not ready */
 /* course intro download sits at the end of the content */
 .intro-cta{display:flex;justify-content:center;flex-wrap:wrap;gap:10px;margin-top:56px;padding:0 24px}
-.intro-btn{gap:8px;padding:16px 28px;font-size:17px;border-radius:16px}
-.intro-btn svg{width:20px;height:20px;flex:none}
+.intro-btn{padding:17px 30px;font-size:18px;font-weight:700;border-radius:22px}
 @media (max-width:900px){.intro-cta{margin-top:4px}}
-@media (max-width:480px){.intro-btn{width:100%}}
+@media (max-width:480px){.intro-cta{flex-wrap:nowrap;gap:8px}.intro-btn{flex:1 1 0;min-width:0;padding:16px 10px;font-size:16px;border-radius:18px}}
 .toast{position:fixed;left:50%;bottom:calc(28px + env(safe-area-inset-bottom,0px));z-index:300;transform:translate(-50%,12px);opacity:0;pointer-events:none;background:rgba(25,31,40,.92);color:#fff;font-size:15px;font-weight:500;padding:12px 18px;border-radius:12px;transition:opacity .25s,transform .25s;white-space:nowrap}
 .toast.on{opacity:1;transform:translate(-50%,0)}
 </style>
@@ -1015,8 +1014,8 @@ footer .wrap{display:flex;flex-direction:column;gap:6px}
       </div>
     </div>
     <div class="intro-cta fx">
-      <button type="button" class="btn btn-blue intro-btn" data-inq><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h16v11H8l-4 4z"/></svg>도입 문의하기</button>
-      <button type="button" class="btn btn-soft intro-btn" id="introBtn" data-file="https://fppartners.vercel.app/aismart/files/aismart-intro.pdf" data-name="AI 스마트 시험과정 소개서.pdf"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></svg>과정 소개서 받기</button>
+      <button type="button" class="btn btn-blue intro-btn" data-inq>도입 문의하기</button>
+      <button type="button" class="btn btn-soft intro-btn" id="introBtn" data-file="https://fppartners.vercel.app/aismart/files/aismart-intro.pdf" data-name="AI 스마트 시험과정 소개서.pdf">과정 소개서 받기</button>
     </div>
   </div>
 </main>
