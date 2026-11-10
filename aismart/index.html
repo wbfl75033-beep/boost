@@ -916,7 +916,7 @@ footer .wrap{display:flex;flex-direction:column;gap:6px}
 @media (max-width:900px){.vs-c.new::after{width:140px;height:140px;right:-20px;bottom:-24px}}
 /* intro download: soft blue next to the solid shortcut; toast while the file is not ready */
 /* course intro download sits at the end of the content */
-.intro-cta{display:flex;justify-content:center;margin-top:56px;padding:0 24px}
+.intro-cta{display:flex;justify-content:center;flex-wrap:wrap;gap:10px;margin-top:56px;padding:0 24px}
 .intro-btn{gap:8px;padding:16px 28px;font-size:17px;border-radius:16px}
 .intro-btn svg{width:20px;height:20px;flex:none}
 @media (max-width:900px){.intro-cta{margin-top:4px}}
@@ -1015,10 +1015,53 @@ footer .wrap{display:flex;flex-direction:column;gap:6px}
       </div>
     </div>
     <div class="intro-cta fx">
+      <button type="button" class="btn btn-blue intro-btn" data-inq><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h16v11H8l-4 4z"/></svg>도입 문의하기</button>
       <button type="button" class="btn btn-soft intro-btn" id="introBtn" data-file="https://fppartners.vercel.app/aismart/files/aismart-intro.pdf" data-name="AI 스마트 시험과정 소개서.pdf"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></svg>과정 소개서 받기</button>
     </div>
   </div>
 </main>
+
+<div class="inq" id="inq" role="dialog" aria-modal="true" aria-labelledby="inqTitle" hidden>
+  <div class="inq-bg" data-inqclose></div>
+  <div class="inq-sheet">
+    <button type="button" class="modal-x" data-inqclose aria-label="닫기"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+    <form id="inqForm" novalidate>
+      <div class="inq-head">
+        <h2 id="inqTitle">도입 문의</h2>
+        <p>담당자가 확인 후 연락드립니다.</p>
+      </div>
+      <input type="hidden" name="subject" value="[AI 스마트 시험과정] 도입 문의">
+      <input type="hidden" name="from_name" value="AI 스마트 시험과정 랜딩페이지">
+      <input type="checkbox" name="botcheck" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+      <div class="inq-grid">
+        <label class="fld"><span>이름 <i>*</i></span><input id="inqName" name="이름" type="text" autocomplete="name" required maxlength="40" placeholder="홍길동"></label>
+        <label class="fld"><span>소속 <i>*</i></span><input id="inqOrg" name="소속" type="text" autocomplete="organization" required maxlength="60" placeholder="OO에셋 OO사업단"></label>
+        <label class="fld"><span>연락처 <i>*</i></span><input id="inqTel" name="연락처" type="tel" autocomplete="tel" inputmode="tel" required maxlength="20" placeholder="010-0000-0000"></label>
+        <label class="fld"><span>이메일</span><input id="inqMail" name="email" type="email" autocomplete="email" maxlength="80" placeholder="name@company.com"></label>
+        <label class="fld wide"><span>문의 내용</span><textarea id="inqMsg" name="문의 내용" rows="4" maxlength="1000" placeholder="예) 기존 교재·영상 공부와 어떤 차이점이 있나요?"></textarea></label>
+      </div>
+      <div class="agree">
+        <label class="chk"><input id="inqAgree" name="개인정보 수집·이용 동의" type="checkbox" value="동의함" required><span>개인정보 수집·이용에 동의합니다 <i>(필수)</i></span></label>
+        <div class="agree-body">
+          <dl>
+            <dt>수집 항목</dt><dd>이름, 소속, 연락처, 이메일·문의 내용(선택)</dd>
+            <dt>수집 목적</dt><dd>도입 문의 확인 및 상담 연락</dd>
+            <dt>보유 기간</dt><dd>문의 처리 완료 후 1년 (관계 법령에 따라 보존이 필요한 경우 해당 기간)</dd>
+          </dl>
+          <p>동의를 거부할 수 있으며, 거부 시 문의 접수가 제한됩니다.</p>
+        </div>
+      </div>
+      <p class="inq-msg" id="inqMsgOut" role="status" aria-live="polite"></p>
+      <button type="submit" class="btn btn-blue inq-send" id="inqSend">문의 보내기</button>
+    </form>
+    <div class="inq-done" id="inqDone" hidden>
+      <img src="data:image/webp;base64,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" alt="">
+      <h2>문의가 접수되었습니다</h2>
+      <p>담당자가 확인 후 남겨 주신 연락처로 연락드리겠습니다.</p>
+      <button type="button" class="btn" data-inqclose>닫기</button>
+    </div>
+  </div>
+</div>
 
 <footer>
   <div class="wrap">
@@ -1059,6 +1102,36 @@ footer .wrap{display:flex;flex-direction:column;gap:6px}
     /* full address: this page is also hosted as a copy on aismart-exam.com, where /aismart/files does not exist */
     var a=document.createElement('a'); a.href=f; a.download=''; /* filename comes from the server's Content-Disposition (Korean names in the attribute are unreliable) */ document.body.appendChild(a); a.click(); setTimeout(function(){ a.remove(); },1000);
   });
+  /* inquiry form: posts to Web3Forms, which mails it to the address registered with the key */
+  var INQ_KEY='2aaaa973-f33e-4b73-bb3a-883279715248';
+  var inq=document.getElementById('inq'), form=document.getElementById('inqForm'), done=document.getElementById('inqDone'), out=document.getElementById('inqMsgOut'), send=document.getElementById('inqSend'), inqLast=null;
+  function inqOpen(){ inqLast=document.activeElement; form.hidden=false; done.hidden=true; out.textContent=''; inq.hidden=false; root.classList.add('lock'); setTimeout(function(){ document.getElementById('inqName').focus(); },50); }
+  function inqClose(){ inq.hidden=true; root.classList.remove('lock'); if(inqLast) inqLast.focus(); }
+  document.querySelectorAll('[data-inq]').forEach(function(b){ b.addEventListener('click',inqOpen); });
+  inq.querySelectorAll('[data-inqclose]').forEach(function(el){ el.addEventListener('click',inqClose); });
+  addEventListener('keydown',function(e){ if(e.key==='Escape' && !inq.hidden) inqClose(); });
+  form.addEventListener('submit',function(e){
+    e.preventDefault(); out.textContent='';
+    var need=[['inqName','이름을 입력해 주세요.'],['inqOrg','소속을 입력해 주세요.'],['inqTel','연락처를 입력해 주세요.']], bad=null;
+    need.forEach(function(n){ var el=document.getElementById(n[0]); var ok=el.value.trim()!==''; el.setAttribute('aria-invalid',ok?'false':'true'); if(!ok && !bad) bad=n; });
+    var tel=document.getElementById('inqTel');
+    if(!bad && !/^[0-9+\-\s()]{8,20}$/.test(tel.value.trim())){ bad=['inqTel','연락처를 숫자로 입력해 주세요.']; tel.setAttribute('aria-invalid','true'); }
+    var mail=document.getElementById('inqMail'); if(!bad && mail.value.trim() && !mail.checkValidity()){ bad=['inqMail','이메일 주소를 확인해 주세요.']; }
+    if(!bad && !document.getElementById('inqAgree').checked){ bad=['inqAgree','개인정보 수집·이용에 동의해 주세요.']; }
+    if(bad){ out.textContent=bad[1]; document.getElementById(bad[0]).focus(); return; }
+    if(!INQ_KEY){ out.textContent='문의 접수 준비 중입니다. 02-525-1686으로 연락 주십시오.'; return; }
+    /* send as JSON: multipart field names lose their Korean encoding on the mail side */
+    var data={access_key:INQ_KEY};
+    new FormData(form).forEach(function(v,k){ if(k!=='botcheck') data[k]=v; });
+    data.botcheck=form.querySelector('[name=botcheck]').checked;
+    send.disabled=true; send.textContent='보내는 중…';
+    fetch('https://api.web3forms.com/submit',{method:'POST',body:JSON.stringify(data),headers:{'Content-Type':'application/json',Accept:'application/json'}})
+      .then(function(r){ return r.json(); })
+      .then(function(j){ if(j && j.success){ form.reset(); form.hidden=true; done.hidden=false; } else { throw new Error(); } })
+      .catch(function(){ out.textContent='전송하지 못했습니다. 잠시 후 다시 시도하시거나 02-525-1686으로 연락 주십시오.'; })
+      .finally(function(){ send.disabled=false; send.textContent='문의 보내기'; });
+  });
+
   var nav=document.getElementById('nav');
   function onScroll(){ nav.classList.toggle('line', scrollY>8); }
   addEventListener('scroll',onScroll,{passive:true}); onScroll();
