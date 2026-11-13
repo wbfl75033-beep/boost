@@ -922,6 +922,15 @@ footer .wrap{display:flex;flex-direction:column;gap:6px}
 @media (max-width:480px){.intro-cta{flex-wrap:nowrap;gap:8px}.intro-btn{flex:1 1 0;min-width:0;padding:16px 10px;font-size:16px;border-radius:18px}}
 .toast{position:fixed;left:50%;bottom:calc(28px + env(safe-area-inset-bottom,0px));z-index:300;transform:translate(-50%,12px);opacity:0;pointer-events:none;background:rgba(25,31,40,.92);color:#fff;font-size:15px;font-weight:500;padding:12px 18px;border-radius:12px;transition:opacity .25s,transform .25s;white-space:nowrap}
 .toast.on{opacity:1;transform:translate(-50%,0)}
+/* mobile nav: pinned with position:fixed instead of sticky. Android Chrome lets a sticky bar
+   slip and snap back while the address bar hides during a long fling; the blur is dropped
+   there too because it repaints on every frame. overflow-x:clip keeps the sideways crop
+   without turning the page into a scroll container. */
+html,body{overflow-x:clip}
+@media (max-width:900px){
+  .nav{position:fixed;top:env(safe-area-inset-top,0px);left:0;right:0;-webkit-backdrop-filter:none;backdrop-filter:none;background:rgba(255,255,255,.98);transform:translateZ(0)}
+  body{padding-top:60px}
+}
 </style>
 
 <nav class="nav" id="nav">
