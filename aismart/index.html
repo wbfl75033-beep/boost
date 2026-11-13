@@ -922,15 +922,15 @@ footer .wrap{display:flex;flex-direction:column;gap:6px}
 @media (max-width:480px){.intro-cta{flex-wrap:nowrap;gap:8px}.intro-btn{flex:1 1 0;min-width:0;padding:16px 10px;font-size:16px;border-radius:18px}}
 .toast{position:fixed;left:50%;bottom:calc(28px + env(safe-area-inset-bottom,0px));z-index:300;transform:translate(-50%,12px);opacity:0;pointer-events:none;background:rgba(25,31,40,.92);color:#fff;font-size:15px;font-weight:500;padding:12px 18px;border-radius:12px;transition:opacity .25s,transform .25s;white-space:nowrap}
 .toast.on{opacity:1;transform:translate(-50%,0)}
-/* mobile nav: pinned with position:fixed instead of sticky. Android Chrome lets a sticky bar
-   slip and snap back while the address bar hides during a long fling; the blur is dropped
-   there too because it repaints on every frame. overflow-x:clip keeps the sideways crop
-   without turning the page into a scroll container. */
-html,body{overflow-x:clip}
-@media (max-width:900px){
-  .nav{position:fixed;top:env(safe-area-inset-top,0px);left:0;right:0;-webkit-backdrop-filter:none;backdrop-filter:none;background:rgba(255,255,255,.98);transform:translateZ(0)}
-  body{padding-top:60px}
-}
+/* app shell: the bar sits above a scroll box and the document itself never scrolls.
+   Android Chrome then has no page scroll to hide its address bar on, so nothing can
+   drag the bar along; iOS and desktop behave the same way. */
+html,body{height:100%;overflow:hidden}
+body{display:flex;flex-direction:column;height:100vh;height:100dvh}
+.nav{position:relative;top:auto;flex:none}
+.scroller{flex:1 1 auto;min-height:0;overflow-y:auto;overflow-x:clip;overscroll-behavior-y:contain;-webkit-overflow-scrolling:touch}
+.lock .scroller{overflow:hidden}
+@media (max-width:900px){.nav{-webkit-backdrop-filter:none;backdrop-filter:none;background:#fff}}
 </style>
 
 <nav class="nav" id="nav">
@@ -942,6 +942,7 @@ html,body{overflow-x:clip}
   </div>
 </nav>
 
+<div class="scroller" id="scroller">
 <main class="modal ex-page">
   <div class="ex-sheet">
     <div class="rail-sec tour">
@@ -1029,6 +1030,15 @@ html,body{overflow-x:clip}
   </div>
 </main>
 
+<footer>
+  <div class="wrap">
+    <b>에프피파트너즈㈜</b>
+    <span>fppartners.co.kr&nbsp;· 02-525-1686</span>
+    <span>AI 스마트 시험과정&nbsp;· <span class="nw">PASS-Aegis Engine</span> 탑재<br>특허 <span class="nw">제10-3038930호</span>&nbsp;· aismart-exam.com</span>
+  </div>
+</footer>
+</div>
+
 <div class="inq" id="inq" role="dialog" aria-modal="true" aria-labelledby="inqTitle" hidden>
   <div class="inq-bg" data-inqclose></div>
   <div class="inq-sheet">
@@ -1071,13 +1081,6 @@ html,body{overflow-x:clip}
   </div>
 </div>
 
-<footer>
-  <div class="wrap">
-    <b>에프피파트너즈㈜</b>
-    <span>fppartners.co.kr&nbsp;· 02-525-1686</span>
-    <span>AI 스마트 시험과정&nbsp;· <span class="nw">PASS-Aegis Engine</span> 탑재<br>특허 <span class="nw">제10-3038930호</span>&nbsp;· aismart-exam.com</span>
-  </div>
-</footer>
 
 <script>
 (function(){
@@ -1141,8 +1144,9 @@ html,body{overflow-x:clip}
   });
 
   var nav=document.getElementById('nav');
-  function onScroll(){ nav.classList.toggle('line', scrollY>8); }
-  addEventListener('scroll',onScroll,{passive:true}); onScroll();
+  var scroller=document.getElementById('scroller');
+  function onScroll(){ nav.classList.toggle('line', scroller.scrollTop>8); }
+  scroller.addEventListener('scroll',onScroll,{passive:true}); onScroll();
 
   /* phone rail: centre the chosen phone, colour it, swap the caption */
   var track=document.getElementById('rsTrack'), cards=[].slice.call(track.querySelectorAll('.rs-card'));
