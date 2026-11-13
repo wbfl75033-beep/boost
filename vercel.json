@@ -15,6 +15,16 @@
       "has": [
         {
           "type": "host",
+          "value": "sb.fppartners.co.kr"
+        }
+      ],
+      "destination": "/landing"
+    },
+    {
+      "source": "/",
+      "has": [
+        {
+          "type": "host",
           "value": "aismart-landing.fppartners.co.kr"
         }
       ],
